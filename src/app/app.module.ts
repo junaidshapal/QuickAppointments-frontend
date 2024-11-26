@@ -11,6 +11,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppointmentsComponent } from './components/appointments/appointments.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TopbarComponent } from './components/topbar/topbar.component';
+import { UsersManagementComponent } from './userManagement/users-management/users-management.component';
+import { RolesManagementComponent } from './userManagement/roles-management/roles-management.component';
 
 
 export function tokenGetter(){
@@ -24,10 +28,14 @@ export function tokenGetter(){
     LoginComponent,
     DashboardComponent,
     NavbarComponent,
-    AppointmentsComponent
+    AppointmentsComponent,
+    TopbarComponent,
+    UsersManagementComponent,
+    RolesManagementComponent
   ],
   imports: [
     BrowserModule,
+    FontAwesomeModule,
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,

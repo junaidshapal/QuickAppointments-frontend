@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
-  styleUrl: './appointments.component.css'
+  styleUrls: ['./appointments.component.css']
 })
 export class AppointmentsComponent {
   appointments = [
@@ -12,13 +13,26 @@ export class AppointmentsComponent {
     { clientName: 'Michael Lee', date: '2024-10-18', time: '02:00 PM', purpose: 'New Project' },
     { clientName: 'Anna White', date: '2024-10-19', time: '09:00 AM', purpose: 'Interview' },
     { clientName: 'Chris Martin', date: '2024-10-20', time: '01:00 PM', purpose: 'Consultation' },
-    // Add more mock data as needed
   ];
+
+  // FontAwesome icons
+  faEdit = faEdit;
+  faTrash = faTrash;
+
+  // Drawer state
+  drawerOpen = false;
+
+  // New appointment object
+  newAppointment = { clientName: '', date: '', time: '', purpose: '' };
 
   // Pagination properties
   pageSize = 3;
   currentPage = 1;
   totalPages = Math.ceil(this.appointments.length / this.pageSize);
+
+  get totalPagesArray() {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
 
   get paginatedAppointments() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
@@ -38,6 +52,43 @@ export class AppointmentsComponent {
     }
   }
 
+  goToPage(page: number) {
+    this.currentPage = page;
+  }
+
+  // Open the new appointment drawer
+  openNewAppointment() {
+    this.drawerOpen = true;
+  }
+
+  // Close the new appointment drawer
+  closeNewAppointment() {
+    this.drawerOpen = false;
+    this.resetNewAppointment();
+  }
+
+  // Save the new appointment
+  saveAppointment() {
+    if (
+      this.newAppointment.clientName &&
+      this.newAppointment.date &&
+      this.newAppointment.time &&
+      this.newAppointment.purpose
+    ) {
+      this.appointments.push({ ...this.newAppointment });
+      this.totalPages = Math.ceil(this.appointments.length / this.pageSize);
+      this.resetNewAppointment();
+      this.drawerOpen = false;
+    } else {
+      alert('Please fill out all fields.');
+    }
+  }
+
+  // Reset the new appointment form
+  resetNewAppointment() {
+    this.newAppointment = { clientName: '', date: '', time: '', purpose: '' };
+  }
+
   // Delete appointment method
   deleteAppointment(appointmentToDelete: any) {
     const confirmed = confirm('Are you sure you want to delete this appointment?');
@@ -54,46 +105,6 @@ export class AppointmentsComponent {
 
   // Edit appointment method
   editAppointment(appointmentToEdit: any) {
-    // You can handle the logic here to open the form pre-filled with the selected appointment's details
     console.log('Editing appointment:', appointmentToEdit);
-    // For example, open a modal or side drawer to update the appointment
-  }
-
-  drawerOpen = false;
-
-  newAppointment = {
-    clientName: '',
-    date: '',
-    time: '',
-    purpose: '',
-  };
-
-  openNewAppointment() {
-    this.drawerOpen = true;
-  }
-
-  closeNewAppointment() {
-    this.drawerOpen = false;
-    this.resetNewAppointment();
-  }
-
-  saveAppointment() {
-    // Validate form and add new appointment
-    if (
-      this.newAppointment.clientName &&
-      this.newAppointment.date &&
-      this.newAppointment.time &&
-      this.newAppointment.purpose
-    ) {
-      this.appointments.push({ ...this.newAppointment });
-      this.resetNewAppointment();
-      this.drawerOpen = false;
-    } else {
-      alert('Please fill out all fields.');
-    }
-  }
-
-  resetNewAppointment() {
-    this.newAppointment = { clientName: '', date: '', time: '', purpose: '' };
   }
 }

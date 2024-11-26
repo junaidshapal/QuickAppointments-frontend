@@ -1,0 +1,42 @@
+<div class="flex items-center justify-between bg-gray-800 text-white h-16 px-4 shadow-md">
+    <!-- Application Title -->
+    <div class="text-lg font-semibold">
+      Quick Appointments
+    </div>
+  
+    <!-- Profile and Dropdown -->
+    <div class="relative">
+      <!-- Profile Picture -->
+      <button
+        class="flex items-center space-x-2 focus:outline-none"
+        (click)="toggleDropdown()"
+      >
+        <img
+          src="https://via.placeholder.com/40"
+          alt="Profile"
+          class="h-10 w-10 rounded-full border-2 border-gray-600"
+        />
+        <span class="hidden md:block">John Doe</span>
+      </button>
+  
+      <!-- Dropdown Menu -->
+      <div
+        *ngIf="isDropdownOpen"
+        class="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded shadow-md z-10"
+      >
+        <a
+          class="block px-4 py-2 hover:bg-gray-100"
+          routerLink="/profile"
+        >
+          Profile
+        </a>
+        <a
+          class="block px-4 py-2 hover:bg-gray-100 cursor-pointer"
+          (click)="logout()"
+        >
+          Logout
+        </a>
+      </div>
+    </div>
+  </div>
+  

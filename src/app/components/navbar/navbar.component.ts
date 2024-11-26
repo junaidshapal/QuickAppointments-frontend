@@ -1,21 +1,29 @@
 import { Component } from '@angular/core';
+import { faBars, faTimes, faHome, faInfoCircle, faCog, faPhone, faUser, faUserCheck, faClipboardList } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  // FontAwesome icons
+  faBars = faBars;
+  faTimes = faTimes;
+
+  // Sidebar toggle state
+  isSidebarOpen = true;
+
+  // Navigation links
   navLinks = [
-    { name: 'Home', route: '/home' },
-    { name: 'About', route: '/about' },
-    { name: 'Services', route: '/services' },
-    { name: 'Contact', route: '/contact' },
+    { name: 'Dashboard', route: '/dashboard', icon: faHome },
+    { name: 'Users', route: '/users-management', icon: faUser },
+    { name: 'Appointment', route: '/appointments', icon: faClipboardList },
+    { name: 'Roles', route: '/roles-management', icon: faUserCheck },
   ];
 
-  selectedLink = this.navLinks[0]; // Default to first link
-
-  selectLink(link: any) {
-    this.selectedLink = link;
+  // Toggle sidebar visibility
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
   }
 }

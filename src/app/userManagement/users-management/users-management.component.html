@@ -1,0 +1,77 @@
+<div class="container mx-auto p-6">
+    <!-- Page Heading -->
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-2xl font-semibold text-gray-800">Users Management</h1>
+    </div>
+  
+    <!-- Users Table -->
+    <div class="relative overflow-x-auto shadow-lg rounded-lg border border-gray-300">
+      <table class="w-full text-sm text-left text-black">
+        <!-- Table Header -->
+        <thead class="text-sm uppercase bg-blue-200 text-black font-bold">
+          <tr>
+            <th scope="col" class="px-6 py-3">#</th>
+            <th scope="col" class="px-6 py-3">Name</th>
+            <th scope="col" class="px-6 py-3">Email</th>
+            <th scope="col" class="px-6 py-3">Role</th>
+            <th scope="col" class="px-6 py-3">Status</th>
+            <th scope="col" class="px-6 py-3 text-center">Actions</th>
+          </tr>
+        </thead>
+        <!-- Table Body -->
+        <tbody>
+          <tr
+            *ngFor="let user of paginatedUsers; let i = index"
+            class="border-b bg-gray-50 hover:bg-gray-100 transition duration-200"
+          >
+            <td class="px-6 py-4 font-medium text-black">{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+            <td class="px-6 py-4 text-black">{{ user.name }}</td>
+            <td class="px-6 py-4 text-black">{{ user.email }}</td>
+            <td class="px-6 py-4 text-black">{{ user.role }}</td>
+            <td class="px-6 py-4 text-black">{{ user.status }}</td>
+            <td class="px-6 py-4 text-center">
+              <!-- Edit Icon -->
+              <fa-icon
+                [icon]="faEdit"
+                class="text-blue-600 hover:text-blue-800 mx-2 cursor-pointer transition duration-200"
+                (click)="editUser(user)"
+              ></fa-icon>
+              <!-- Delete Icon -->
+              <fa-icon
+                [icon]="faTrash"
+                class="text-red-600 hover:text-red-800 mx-2 cursor-pointer transition duration-200"
+                (click)="deleteUser(user)"
+              ></fa-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Pagination -->
+    <div class="flex justify-center items-center mt-4 space-x-2">
+      <button
+        class="px-3 py-1 rounded border border-gray-300 bg-gray-100 hover:bg-gray-200"
+        (click)="prevPage()"
+        [disabled]="currentPage === 1"
+      >
+        Prev
+      </button>
+      <button
+        *ngFor="let page of totalPagesArray; let i = index"
+        class="px-3 py-1 rounded border border-gray-300"
+        [ngClass]="{ 'bg-blue-500 text-white': currentPage === page, 'bg-gray-100 hover:bg-gray-200': currentPage !== page }"
+        (click)="goToPage(page)"
+      >
+        {{ page }}
+      </button>
+      <button
+        class="px-3 py-1 rounded border border-gray-300 bg-gray-100 hover:bg-gray-200"
+        (click)="nextPage()"
+        [disabled]="currentPage === totalPages"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+  
