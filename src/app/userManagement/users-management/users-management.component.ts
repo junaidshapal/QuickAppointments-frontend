@@ -13,6 +13,7 @@ export class UsersManagementComponent {
     { id: 3, name: 'Michael Lee', email: 'michael.lee@example.com', role: 'Patient', status: 'Inactive' },
     { id: 4, name: 'Anna White', email: 'anna.white@example.com', role: 'Doctor', status: 'Active' },
     { id: 5, name: 'Chris Martin', email: 'chris.martin@example.com', role: 'Patient', status: 'Active' },
+    { id: 6, name: 'Abdal Shahpal', email: 'abdal.aws@example.com', role: 'AWS Architect', status: 'Inactive' },
   ];
 
   faEdit = faEdit;
