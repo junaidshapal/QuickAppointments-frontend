@@ -57,30 +57,37 @@
   </div>
 
   <!-- Pagination -->
-  <div class="flex justify-center items-center mt-4 space-x-2">
-    <button
-      class="px-3 py-1 rounded border border-gray-300 bg-gray-100 hover:bg-gray-200"
-      (click)="prevPage()"
-      [disabled]="currentPage === 1"
-    >
-      Prev
-    </button>
-    <button
-      *ngFor="let page of totalPagesArray; let i = index"
-      class="px-3 py-1 rounded border border-gray-300"
-      [ngClass]="{ 'bg-blue-500 text-white': currentPage === page, 'bg-gray-100 hover:bg-gray-200': currentPage !== page }"
-      (click)="goToPage(page)"
-    >
-      {{ page }}
-    </button>
-    <button
-      class="px-3 py-1 rounded border border-gray-300 bg-gray-100 hover:bg-gray-200"
-      (click)="nextPage()"
-      [disabled]="currentPage === totalPages"
-    >
-      Next
-    </button>
+  <div class="flex justify-between items-center mt-4">
+    <!-- Pagination Summary -->
+    <div class="text-gray-500 text-sm">{{ paginationSummary }}</div>
+  
+    <!-- Pagination Controls -->
+    <div class="flex justify-end items-center space-x-2">
+      <button
+        class="px-3 py-1 rounded border border-gray-300 bg-gray-100 hover:bg-gray-200"
+        (click)="prevPage()"
+        [disabled]="currentPage === 1"
+      >
+        Prev
+      </button>
+      <button
+        *ngFor="let page of totalPagesArray; let i = index"
+        class="px-3 py-1 rounded border border-gray-300"
+        [ngClass]="{ 'bg-blue-500 text-white': currentPage === page, 'bg-gray-100 hover:bg-gray-200': currentPage !== page }"
+        (click)="goToPage(page)"
+      >
+        {{ page }}
+      </button>
+      <button
+        class="px-3 py-1 rounded border border-gray-300 bg-gray-100 hover:bg-gray-200"
+        (click)="nextPage()"
+        [disabled]="currentPage === totalPages"
+      >
+        Next
+      </button>
+    </div>
   </div>
+  
 
   <!-- Overlay for Drawer -->
   <div

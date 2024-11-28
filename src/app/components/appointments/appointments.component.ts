@@ -26,14 +26,21 @@ export class AppointmentsComponent {
   newAppointment = { clientName: '', date: '', time: '', purpose: '' };
 
   // Pagination properties
-  pageSize = 3;
-  currentPage = 1;
-  totalPages = Math.ceil(this.appointments.length / this.pageSize);
+  pageSize = 3; // Number of items per page
+  currentPage = 1; // Current page
+  totalItems = this.appointments.length; // Total number of appointments
 
+  // Getter for total pages
+  get totalPages() {
+    return Math.ceil(this.totalItems / this.pageSize);
+  }
+
+  // Getter for total pages as an array (used for page navigation)
   get totalPagesArray() {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
+  // Get paginated appointments (appointments displayed on the current page)
   get paginatedAppointments() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     return this.appointments.slice(startIndex, startIndex + this.pageSize);
@@ -56,18 +63,25 @@ export class AppointmentsComponent {
     this.currentPage = page;
   }
 
-  // Open the new appointment drawer
+  //Method for Display pagination summary
+  get paginationSummary() {
+    const startItem = (this.currentPage - 1) * this.pageSize + 1;
+    const endItem = Math.min(this.currentPage * this.pageSize, this.totalItems);
+    return `Showing ${startItem} - ${endItem} out of ${this.totalItems}`;
+  }
+
+  //Open the new appointment drawer
   openNewAppointment() {
     this.drawerOpen = true;
   }
 
-  // Close the new appointment drawer
+  //Close the new appointment drawer
   closeNewAppointment() {
     this.drawerOpen = false;
     this.resetNewAppointment();
   }
 
-  // Save the new appointment
+  //Save the new appointment
   saveAppointment() {
     if (
       this.newAppointment.clientName &&
@@ -76,7 +90,7 @@ export class AppointmentsComponent {
       this.newAppointment.purpose
     ) {
       this.appointments.push({ ...this.newAppointment });
-      this.totalPages = Math.ceil(this.appointments.length / this.pageSize);
+      this.totalItems = this.appointments.length; // Update total items
       this.resetNewAppointment();
       this.drawerOpen = false;
     } else {
@@ -84,26 +98,26 @@ export class AppointmentsComponent {
     }
   }
 
-  // Reset the new appointment form
+  //Reset the new appointment form
   resetNewAppointment() {
     this.newAppointment = { clientName: '', date: '', time: '', purpose: '' };
   }
 
-  // Delete appointment method
+  //Delete appointment method
   deleteAppointment(appointmentToDelete: any) {
     const confirmed = confirm('Are you sure you want to delete this appointment?');
     if (confirmed) {
       this.appointments = this.appointments.filter(
         appointment => appointment !== appointmentToDelete
       );
-      this.totalPages = Math.ceil(this.appointments.length / this.pageSize);
+      this.totalItems = this.appointments.length; // Update total items
       if (this.currentPage > this.totalPages) {
-        this.currentPage = this.totalPages;
+        this.currentPage = this.totalPages; // Adjust current page if it exceeds total pages
       }
     }
   }
 
-  // Edit appointment method
+  //Edit appointment method
   editAppointment(appointmentToEdit: any) {
     console.log('Editing appointment:', appointmentToEdit);
   }
