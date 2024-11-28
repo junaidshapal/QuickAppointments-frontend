@@ -7,7 +7,6 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./users-management.component.css'],
 })
 export class UsersManagementComponent {
-  // Mock data for users
   users = [
     { id: 1, name: 'John Doe', email: 'john.doe@example.com', role: 'Admin', status: 'Active' },
     { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com', role: 'Doctor', status: 'Active' },
@@ -16,14 +15,13 @@ export class UsersManagementComponent {
     { id: 5, name: 'Chris Martin', email: 'chris.martin@example.com', role: 'Patient', status: 'Active' },
   ];
 
-  // FontAwesome icons
   faEdit = faEdit;
   faTrash = faTrash;
 
   // Pagination properties
-  pageSize = 3; // Number of items per page
-  currentPage = 1; // Current page
-  totalItems = this.users.length; // Total number of items
+  pageSize = 3;
+  currentPage = 1;
+  totalItems = this.users.length;
 
   // Getter for total pages
   get totalPages() {
@@ -65,13 +63,13 @@ export class UsersManagementComponent {
     return `Showing ${startItem} - ${endItem} out of ${this.totalItems}`;
   }
 
-  // Edit user
+  //Method for Edit user
   editUser(user: any) {
     console.log('Editing user:', user);
     // Add logic to edit user, e.g., open a form pre-filled with user details
   }
 
-  // Delete user
+  //Method for Delete user
   deleteUser(userToDelete: any) {
     const confirmed = confirm('Are you sure you want to delete this user?');
     if (confirmed) {
