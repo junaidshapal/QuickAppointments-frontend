@@ -12,6 +12,7 @@ export class RolesManagementComponent {
     { id: 2, name: 'Doctor', description: 'Manages appointments and schedules.', userCount: 10 },
     { id: 3, name: 'Patient', description: 'Can book appointments.', userCount: 25 },
     { id: 4, name: 'Manager', description: 'Handles team and operations.', userCount: 3 },
+    { id: 5, name: 'Teacher', description: 'Teachs students.', userCount: 6 },
   ];
 
   // Delete role method
