@@ -13,6 +13,7 @@ export class UsersManagementComponent {
     { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com', role: 'Doctor', status: 'Active' },
     { id: 3, name: 'Michael Lee', email: 'michael.lee@example.com', role: 'Patient', status: 'Inactive' },
     { id: 4, name: 'Anna White', email: 'anna.white@example.com', role: 'Doctor', status: 'Active' },
+    { id: 5, name: 'Chris Martin', email: 'chris.martin@example.com', role: 'Patient', status: 'Active' },
   ];
 
   // FontAwesome icons
@@ -20,16 +21,21 @@ export class UsersManagementComponent {
   faTrash = faTrash;
 
   // Pagination properties
-  pageSize = 3;
-  currentPage = 1;
-  totalPages = Math.ceil(this.users.length / this.pageSize);
+  pageSize = 3; // Number of items per page
+  currentPage = 1; // Current page
+  totalItems = this.users.length; // Total number of items
 
-  // Getter for total pages as an array
+  // Getter for total pages
+  get totalPages() {
+    return Math.ceil(this.totalItems / this.pageSize);
+  }
+
+  // Getter for total pages as an array (used for page navigation)
   get totalPagesArray() {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
-  // Get paginated users
+  // Get paginated users (users displayed on the current page)
   get paginatedUsers() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     return this.users.slice(startIndex, startIndex + this.pageSize);
@@ -52,6 +58,13 @@ export class UsersManagementComponent {
     this.currentPage = page;
   }
 
+  // Display pagination summary
+  get paginationSummary() {
+    const startItem = (this.currentPage - 1) * this.pageSize + 1;
+    const endItem = Math.min(this.currentPage * this.pageSize, this.totalItems);
+    return `Showing ${startItem} - ${endItem} out of ${this.totalItems}`;
+  }
+
   // Edit user
   editUser(user: any) {
     console.log('Editing user:', user);
@@ -63,9 +76,9 @@ export class UsersManagementComponent {
     const confirmed = confirm('Are you sure you want to delete this user?');
     if (confirmed) {
       this.users = this.users.filter((user) => user.id !== userToDelete.id);
-      this.totalPages = Math.ceil(this.users.length / this.pageSize);
+      this.totalItems = this.users.length; // Update total items after deletion
       if (this.currentPage > this.totalPages) {
-        this.currentPage = this.totalPages;
+        this.currentPage = this.totalPages; // Adjust current page if it exceeds total pages
       }
     }
   }
