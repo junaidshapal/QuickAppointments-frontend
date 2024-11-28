@@ -19,28 +19,28 @@ export class UsersManagementComponent {
   faEdit = faEdit;
   faTrash = faTrash;
 
-  // Pagination properties
+  //Pagination properties
   pageSize = 3;
   currentPage = 1;
   totalItems = this.users.length;
 
-  // Getter for total pages
+  //Getter for total pages
   get totalPages() {
     return Math.ceil(this.totalItems / this.pageSize);
   }
 
-  // Getter for total pages as an array (used for page navigation)
+  //Getter for total pages as an array (used for page navigation)
   get totalPagesArray() {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
-  // Get paginated users (users displayed on the current page)
+  //Get paginated users (users displayed on the current page)
   get paginatedUsers() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     return this.users.slice(startIndex, startIndex + this.pageSize);
   }
 
-  // Pagination methods
+  //Pagination methods
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
@@ -57,7 +57,7 @@ export class UsersManagementComponent {
     this.currentPage = page;
   }
 
-  // Display pagination summary
+  //Display pagination summary
   get paginationSummary() {
     const startItem = (this.currentPage - 1) * this.pageSize + 1;
     const endItem = Math.min(this.currentPage * this.pageSize, this.totalItems);
