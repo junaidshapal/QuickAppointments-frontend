@@ -8,8 +8,8 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 })
 export class AppointmentsComponent {
   appointments = [
-    { clientName: 'John Doe', date: '2024-10-16', time: '10:00 AM', purpose: 'Consultation' },
-    { clientName: 'Jane Smith', date: '2024-10-17', time: '11:30 AM', purpose: 'Follow-up' },
+    { clientName: 'Junaid Shahpal', date: '2024-10-16', time: '10:00 AM', purpose: 'Consultation' },
+    { clientName: 'Juni dev', date: '2024-10-17', time: '11:30 AM', purpose: 'Follow-up' },
     { clientName: 'Michael Lee', date: '2024-10-18', time: '02:00 PM', purpose: 'New Project' },
     { clientName: 'Anna White', date: '2024-10-19', time: '09:00 AM', purpose: 'Interview' },
     { clientName: 'Chris Martin', date: '2024-10-20', time: '01:00 PM', purpose: 'Consultation' },
