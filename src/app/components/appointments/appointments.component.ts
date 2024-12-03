@@ -16,11 +16,11 @@ export class AppointmentsComponent {
     { clientName: 'Abdal Shahpal', date: '2024-10-24', time: '02:00 PM', purpose: 'Normal Checkup' },
   ];
 
-  // FontAwesome icons
+  //FontAwesome icons
   faEdit = faEdit;
   faTrash = faTrash;
 
-  // Drawer state
+  //Drawer state
   drawerOpen = false;
 
   // New appointment object
