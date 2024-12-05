@@ -95,7 +95,7 @@ export class AppointmentsComponent {
       this.resetNewAppointment();
       this.drawerOpen = false;
     } else {
-      alert('Please fill out all fields.');
+      alert('Please fill out all .');
     }
   }
 
