@@ -8,7 +8,7 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 })
 export class UsersManagementComponent {
   users = [
-    { id: 1, name: 'Junaid Mughal', email: 'junaid.mughal@example.com', role: 'Admin', status: 'Active' },
+    { id: 1, name: 'Abdal Shapal', email: 'junaid.mughal@example.com', role: 'Admin', status: 'Active' },
     { id: 2, name: 'Jamil Moughal', email: 'jamil.moughal@example.com', role: 'Doctor', status: 'Active' },
     { id: 3, name: 'Touseef Mughal', email: 'touseef.rafiq@example.com', role: 'Patient', status: 'Inactive' },
     { id: 4, name: 'Husnain Ali', email: 'husnain.ali@example.com', role: 'Doctor', status: 'Active' },
