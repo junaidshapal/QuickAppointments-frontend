@@ -10,7 +10,7 @@ export class UsersManagementComponent {
   users = [
     { id: 1, name: 'Junaid Mughal', email: 'junaid.mughal@example.com', role: 'Admin', status: 'Active' },
     { id: 2, name: 'Jamil Moughal', email: 'jamil.moughal@example.com', role: 'Doctor', status: 'Active' },
-    { id: 3, name: 'Essa Afzal', email: 'touseef.rafiq@example.com', role: 'Patient', status: 'Inactive' },
+    { id: 3, name: 'Touseef Mughal', email: 'touseef.rafiq@example.com', role: 'Patient', status: 'Inactive' },
     { id: 4, name: 'Husnain Aftab Ali', email: 'husnain.ali@example.com', role: 'Doctor', status: 'Active' },
     { id: 5, name: 'Arman mughal', email: 'arman.mughal@example.com', role: 'Patient', status: 'Active' },
     { id: 6, name: 'Abdal Shahpal', email: 'abdal.aws@example.com', role: 'AWS Architect', status: 'Inactive' },
