@@ -35,10 +35,7 @@ export class UsersManagementComponent {
   }
 
   //Get paginated users (users displayed on the current page)
-  get paginatedUsers() {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    return this.users.slice(startIndex, startIndex + this.pageSize);
-  }
+ 
 
   //Pagination methods
   nextPage() {
