@@ -48,7 +48,17 @@ export class AppointmentsComponent {
   }
 
   // Pagination methods
-  
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
 
   goToPage(page: number) {
     this.currentPage = page;
