@@ -58,16 +58,12 @@ export class UsersManagementComponent {
   }
 
   //Display pagination summary
-  get paginationSummary() {
-    const startItem = (this.currentPage - 1) * this.pageSize + 1;
-    const endItem = Math.min(this.currentPage * this.pageSize, this.totalItems);
-    return `Showing ${startItem} - ${endItem} out of ${this.totalItems}`;
-  }
+  
 
   //Method for Edit user
   editUser(user: any) {
     console.log('Editing user:', user);
-    // Add logic to edit user, e.g., open a form pre-filled with user details
+    //Add logic to edit user, e.g., open a form pre-filled with user details
   }
 
   //Method for Delete user
