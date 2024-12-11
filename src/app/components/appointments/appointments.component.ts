@@ -23,12 +23,12 @@ export class AppointmentsComponent {
   //Drawer state
   drawerOpen = false;
 
-  // New appointment object
+  //New appointment object
   newAppointment = { clientName: '', date: '', time: '', purpose: '' };
 
-  // Pagination properties
-  pageSize = 3; // Number of items per page
-  currentPage = 1; // Current page
+  //Pagination properties
+  pageSize = 3; //Number of items per page
+  currentPage = 1; //Current page
   totalItems = this.appointments.length; // Total number of appointments
 
   // Getter for total pages
@@ -41,13 +41,13 @@ export class AppointmentsComponent {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
-  // Get paginated appointments (appointments displayed on the current page)
+  //Get paginated appointments (appointments displayed on the current page)
   get paginatedAppointments() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     return this.appointments.slice(startIndex, startIndex + this.pageSize);
   }
 
-  // Pagination methods
+  //Pagination methods
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
