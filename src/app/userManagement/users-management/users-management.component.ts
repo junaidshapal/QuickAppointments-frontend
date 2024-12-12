@@ -20,14 +20,9 @@ export class UsersManagementComponent {
   faTrash = faTrash;
 
   //Pagination properties
-  pageSize = 3;
-  currentPage = 1;
-  totalItems = this.users.length;
-
+  
   //Getter for total pages
-  get totalPages() {
-    return Math.ceil(this.totalItems / this.pageSize);
-  }
+ 
 
   //Getter for total pages as an array (used for page navigation)
   get totalPagesArray() {
