@@ -17,17 +17,7 @@ export class AppointmentsComponent {
   ];
 
   //FontAwesome icons
-  faEdit = faEdit;
-  faTrash = faTrash;
-
-  //Drawer state
-  drawerOpen = false;
-
-  //New appointment object
-
-  //Pagination properties
-  pageSize = 3; //Number of items per page
-  currentPage = 1; //Current page
+page
   totalItems = this.appointments.length; // Total number of appointments
 
   // Getter for total pages
