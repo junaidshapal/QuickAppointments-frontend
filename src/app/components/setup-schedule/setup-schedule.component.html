@@ -1,0 +1,41 @@
+<div class="container mx-auto p-6">
+  <h1 class="text-3xl font-semibold mb-6 text-center">Setup Schedule</h1>
+
+  <!-- Schedule Form -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <mat-card *ngFor="let day of schedule" class="shadow-lg">
+      <mat-card-header>
+        <mat-checkbox [(ngModel)]="day.available" color="primary">
+          <span class="text-lg font-medium">{{ day.day }}</span>
+        </mat-checkbox>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div *ngIf="day.available" class="flex flex-col gap-4">
+          <!-- Start Time -->
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Start Time</mat-label>
+            <input matInput [matTimepicker]="startPicker" [(ngModel)]="day.startTime" />
+            <mat-timepicker-toggle matSuffix [for]="startPicker"></mat-timepicker-toggle>
+            <mat-timepicker #startPicker></mat-timepicker>
+          </mat-form-field>
+
+          <!-- End Time -->
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>End Time</mat-label>
+            <input matInput [matTimepicker]="endPicker" [(ngModel)]="day.endTime" />
+            <mat-timepicker-toggle matSuffix [for]="endPicker"></mat-timepicker-toggle>
+            <mat-timepicker #endPicker></mat-timepicker>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Save Button -->
+  <div class="flex justify-center mt-8">
+    <button mat-raised-button color="primary" (click)="saveSchedule()" class="px-6 py-3">
+      Save Schedule
+    </button>
+  </div>
+</div>

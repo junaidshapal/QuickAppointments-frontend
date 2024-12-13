@@ -6,7 +6,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { SignupComponent } from './AuthComponents/signup/signup.component';
 import { LoginComponent } from './AuthComponents/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { AuthInterceptor } from './Auth/token.interceptor'; 
+import { AuthInterceptor } from './Auth/token.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -15,9 +15,21 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { UsersManagementComponent } from './userManagement/users-management/users-management.component';
 import { RolesManagementComponent } from './userManagement/roles-management/roles-management.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { SetupScheduleComponent } from './components/setup-schedule/setup-schedule.component';
 
+// Angular Material Modules
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-export function tokenGetter(){
+export function tokenGetter() {
   return localStorage.getItem('jwtToken');
 }
 
@@ -31,33 +43,42 @@ export function tokenGetter(){
     AppointmentsComponent,
     TopbarComponent,
     UsersManagementComponent,
-    RolesManagementComponent
+    RolesManagementComponent,
+    SetupScheduleComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule, // Required for Angular Material animations
     FontAwesomeModule,
     FormsModule,
-    AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    AppRoutingModule,
     JwtModule.forRoot({
-      config:{
-        tokenGetter:tokenGetter,
+      config: {
+        tokenGetter: tokenGetter,
         allowedDomains: ['localhost:5000'],
-        disallowedRoutes:['localhost:5000/api/auth/login', 'localhost:5000/api/auth/register']
-      }
-    })
+        disallowedRoutes: ['localhost:5000/api/auth/login', 'localhost:5000/api/auth/register'],
+      },
+    }),
+    // Angular Material Modules
+    MatCardModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
-  // providers: [
-  //   provideClientHydration()
-  // ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
+    provideAnimationsAsync(),
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
