@@ -6,8 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./setup-schedule.component.css'],
 })
 export class SetupScheduleComponent {
+  // Days of the week
   daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
+  // Schedule data
   schedule = this.daysOfWeek.map(day => ({
     day,
     startTime: '',

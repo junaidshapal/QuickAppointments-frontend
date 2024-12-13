@@ -9,6 +9,7 @@ import { AppointmentsComponent } from './components/appointments/appointments.co
 import { RoleGuard } from './Auth/role.guard';
 import { UsersManagementComponent } from './userManagement/users-management/users-management.component';
 import { RolesManagementComponent } from './userManagement/roles-management/roles-management.component';
+import { SetupScheduleComponent } from './components/setup-schedule/setup-schedule.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'login', pathMatch:'full'},
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'appointments', component: AppointmentsComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'users-management', component: UsersManagementComponent, canActivate: [AuthGuard] },
-  { path: 'roles-management', component: RolesManagementComponent, canActivate: [AuthGuard] }
+  { path: 'roles-management', component: RolesManagementComponent, canActivate: [AuthGuard] },
+  { path: 'setup-schedule', component: SetupScheduleComponent, canActivate: [AuthGuard] }
 
 ];
 
