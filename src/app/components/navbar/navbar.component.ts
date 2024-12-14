@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faBars, faTimes, faHome, faInfoCircle, faCog, faPhone, faUser, faUserCheck, faClipboardList } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes, faHome, faInfoCircle, faCog, faPhone, faUser, faUserCheck, faClipboardList, faAmbulance } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navbar',
@@ -20,6 +20,8 @@ export class NavbarComponent {
     { name: 'Users', route: '/users-management', icon: faUser },
     { name: 'Appointment', route: '/appointments', icon: faClipboardList },
     { name: 'Roles', route: '/roles-management', icon: faUserCheck },
+    { name: 'Set Schedule', route: '/setup-schedule', icon: faAmbulance },
+
   ];
 
   // Toggle sidebar visibility
