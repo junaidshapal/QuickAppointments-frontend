@@ -11,7 +11,7 @@ export class NavbarComponent {
   faBars = faBars;
   faTimes = faTimes;
 
-  // Sidebar toggle state
+  //Sidebar toggle state nsjkjcbkwbwbc
   isSidebarOpen = true;
 
   // Navigation links
