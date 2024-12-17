@@ -6,10 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./setup-schedule.component.css'],
 })
 export class SetupScheduleComponent {
-  // Days of the week
+  //Days of the week
   daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-  // Schedule data
+  //Schedule data
   schedule = this.daysOfWeek.map(day => ({
     day,
     startTime: '',
@@ -17,7 +17,7 @@ export class SetupScheduleComponent {
     available: false,
   }));
 
-  // Save the schedule
+  //Save the schedule
   saveSchedule() {
     const availableDays = this.schedule.filter(day => day.available);
     console.log('Saved schedule:', availableDays);
