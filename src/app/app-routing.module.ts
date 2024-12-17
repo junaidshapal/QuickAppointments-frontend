@@ -16,10 +16,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'appointments', component: AppointmentsComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'users-management', component: UsersManagementComponent, canActivate: [AuthGuard] },
-  { path: 'roles-management', component: RolesManagementComponent, canActivate: [AuthGuard] },
-  { path: 'setup-schedule', component: SetupScheduleComponent, canActivate: [AuthGuard] }
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'users-management', component: UsersManagementComponent },
+  { path: 'roles-management', component: RolesManagementComponent},
+  { path: 'setup-schedule', component: SetupScheduleComponent  }
 
 ];
 
