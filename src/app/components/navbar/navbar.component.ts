@@ -11,7 +11,7 @@ export class NavbarComponent {
   faBars = faBars;
   faTimes = faTimes;
 
-  //Sidebar toggle state HJuhbshugdsu
+  //Sidebar toggle state
   isSidebarOpen = true;
 
   // Navigation links
@@ -20,7 +20,7 @@ export class NavbarComponent {
     { name: 'Users', route: '/users-management', icon: faUser },
     { name: 'Appointment', route: '/appointments', icon: faClipboardList },
     { name: 'Roles', route: '/roles-management', icon: faUserCheck },
-    { name: 'Set Schedule', route: '/setup-schedule', icon: faAmbulance },
+    { name: 'Schedule', route: '/setup-schedule', icon: faAmbulance },
 
   ];
 
