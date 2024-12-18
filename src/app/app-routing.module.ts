@@ -11,17 +11,7 @@ import { UsersManagementComponent } from './userManagement/users-management/user
 import { RolesManagementComponent } from './userManagement/roles-management/roles-management.component';
 import { SetupScheduleComponent } from './components/setup-schedule/setup-schedule.component';
 
-const routes: Routes = [
-  {path:'', redirectTo:'login', pathMatch:'full'},
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'appointments', component: AppointmentsComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'users-management', component: UsersManagementComponent },
-  { path: 'roles-management', component: RolesManagementComponent},
-  { path: 'setup-schedule', component: SetupScheduleComponent  }
 
-];
 
 
 @NgModule({
