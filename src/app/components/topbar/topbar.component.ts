@@ -14,14 +14,14 @@ export class TopbarComponent {
   }
 
   //Close the dropdown when clicking outside
-  // @HostListener('document:click', ['$event'])
-  // onDocumentClick(event: MouseEvent) {
-  //   const target = event.target as HTMLElement;
-  //   const isInsideDropdown = target.closest('.relative');
-  //   if (!isInsideDropdown) {
-  //     this.isDropdownOpen = false;
-  //   }
-  // }
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const isInsideDropdown = target.closest('.relative');
+    if (!isInsideDropdown) {
+      this.isDropdownOpen = false;
+    }
+  }
 
   //Handle logout logic
   logout() {
