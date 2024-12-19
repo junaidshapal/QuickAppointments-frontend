@@ -21,7 +21,6 @@ export class NavbarComponent {
     { name: 'Appointment', route: '/appointments', icon: faClipboardList },
     { name: 'Roles', route: '/roles-management', icon: faUserCheck },
     { name: 'Schedule', route: '/setup-schedule', icon: faAmbulance },
-
   ];
 
   // Toggle sidebar visibility
