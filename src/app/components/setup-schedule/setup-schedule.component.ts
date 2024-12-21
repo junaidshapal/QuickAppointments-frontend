@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class SetupScheduleComponent {
   //Days of the week
-  daysOfWeek = ['Monday', 'ChewssDay', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   //Schedule data
   schedule = this.daysOfWeek.map(day => ({
