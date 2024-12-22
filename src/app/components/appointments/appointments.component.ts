@@ -24,7 +24,7 @@ export class AppointmentsComponent {
   drawerOpen = false;
 
   //New appointment object
-  newAppointment = { clientName: '', date: '', time: '', purpose: '' };
+  newAppointment = { clientName: 'Junaid Mughal', date: '', time: '', purpose: '' };
 
   //Pagination properties
   pageSize = 3; //Number of items per page
