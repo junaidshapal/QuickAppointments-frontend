@@ -10,12 +10,7 @@ export class SetupScheduleComponent {
   daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   //Schedule data
-  schedule = this.daysOfWeek.map(day => ({
-    day,
-    startTime: '',
-    endTime: '',
-    available: false,
-  }));
+  
 
   //Save the schedule
   saveSchedule() {
