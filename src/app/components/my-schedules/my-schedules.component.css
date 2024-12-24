@@ -1,0 +1,23 @@
+.container {
+    max-width: 1200px;
+  }
+  
+  mat-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  mat-card-title {
+    font-weight: bold;
+  }
+  
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  mat-card-avatar {
+    font-size: 18px;
+  }
+  

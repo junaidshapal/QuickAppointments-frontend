@@ -28,6 +28,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MySchedulesComponent } from './components/my-schedules/my-schedules.component';
 
 export function tokenGetter() {
   return localStorage.getItem('jwtToken');
@@ -45,6 +46,7 @@ export function tokenGetter() {
     UsersManagementComponent,
     RolesManagementComponent,
     SetupScheduleComponent,
+    MySchedulesComponent,
   ],
   imports: [
     BrowserModule,

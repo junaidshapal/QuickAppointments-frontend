@@ -10,6 +10,7 @@ import { RoleGuard } from './Auth/role.guard';
 import { UsersManagementComponent } from './userManagement/users-management/users-management.component';
 import { RolesManagementComponent } from './userManagement/roles-management/roles-management.component';
 import { SetupScheduleComponent } from './components/setup-schedule/setup-schedule.component';
+import { MySchedulesComponent } from './components/my-schedules/my-schedules.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'login', pathMatch:'full'},
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'users-management', component: UsersManagementComponent },
   { path: 'roles-management', component: RolesManagementComponent},
-  { path: 'setup-schedule', component: SetupScheduleComponent  }
+  { path: 'setup-schedule', component: SetupScheduleComponent  },
+  { path: 'my-schedules', component: MySchedulesComponent  }
 
 ];
 
