@@ -32,7 +32,7 @@ export class MySchedulesComponent {
     {
       day: 'Thursday',
       date: '2024-12-21',
-      startTime: '08:00 AM',
+      startTime: '09:00 AM',
       endTime: '02:00 PM',
       active: true,
     },
@@ -40,7 +40,7 @@ export class MySchedulesComponent {
       day: 'Friday',
       date: '2024-12-22',
       startTime: '09:30 AM',
-      endTime: '01:30 PM',
+      endTime: '04:30 PM',
       active: false,
     },
   ];
