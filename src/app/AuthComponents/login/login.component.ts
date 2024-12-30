@@ -28,19 +28,22 @@ ngOnInit(): void {
 }
 
 
-login():void {
+login(): void {
+  if (this.loginForm?.invalid) {
+    alert('Please provide valid credentials');
+    return;
+  }
+
   this.authService.login(this.loginData).subscribe({
     next: (response) => {
-      if (this.authService.isAuthenticated()) {
-        this.router.navigate(['dashboard']);
-      }
+      localStorage.setItem('jwtToken', response.token); // Store JWT token
+      alert('Login successful!');
+      this.router.navigate(['/dashboard']); // Redirect to dashboard
     },
     error: (err) => {
-      console.log('Login failed:', err);
+      console.error('Login failed:', err);
+      alert('Invalid login credentials!');
     },
-    complete: () => {
-      console.log('Login request completed.');
-    }
   });
 }
 
