@@ -1,60 +1,49 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../Auth/auth.service'; 
-import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../Auth/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  
-  loginForm: FormGroup | undefined;
-//variables for show password toggle
-showPassword = false;
-  
-  loginData = { UserName: '', Password: '' };
+  loginForm: FormGroup;
+  showPassword = false;
 
-constructor(
-  private formBuilder:FormBuilder,
-  private authService: AuthService, private router: Router) {}
-  
-ngOnInit(): void {
-  this.loginForm = this.formBuilder.group({
-    userName:['', Validators.required],
-    password:['', Validators.required]
-  })
-}
-
-
-login(): void {
-  if (this.loginForm?.invalid) {
-    alert('Please provide valid credentials');
-    return;
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+    });
   }
 
-  this.authService.login(this.loginData).subscribe({
-    next: (response) => {
-      localStorage.setItem('jwtToken', response.token); // Store JWT token
-      alert('Login successful!');
-      this.router.navigate(['/dashboard']); // Redirect to dashboard
-    },
-    error: (err) => {
-      console.error('Login failed:', err);
-      alert('Invalid login credentials!');
-    },
-  });
+  ngOnInit(): void {}
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  login(): void {
+    if (this.loginForm.invalid) {
+      alert('Please provide valid credentials');
+      return;
+    }
+
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (response) => {
+        console.log('Login successful:', response);
+        this.router.navigate(['dashboard']);
+      },
+      error: (err) => {
+        console.error('Login failed:', err);
+        alert('Login failed! Please check your credentials.');
+      },
+    });
+  }
 }
-
-
-
-//Method to show password
-togglePasswordVisibility(){
-  this.showPassword = !this.showPassword;
-}
-
-}
-
-
-
