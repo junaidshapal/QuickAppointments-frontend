@@ -24,7 +24,6 @@ const routes: Routes = [
   { path: 'my-schedules', component: MySchedulesComponent, canActivate: [AuthGuard]  },
   { path: '**', redirectTo: 'login' },
 
-
 ];
 
 
