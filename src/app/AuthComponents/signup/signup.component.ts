@@ -1,17 +1,14 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../Auth/auth.service'; 
+import { AuthService } from '../../Auth/auth.service';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css'
+  styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent {
   registerForm: FormGroup;
-  isSubmitted = false;
-
-  //variables for show password toggle
   showPassword = false;
   showConfirmPassword = false;
 
@@ -19,38 +16,41 @@ export class SignupComponent {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]]
+      confirmPassword: ['', Validators.required],
     });
   }
 
-  get formControls(){
-    return this.registerForm.controls;
-  }
-
-  togglePasswordVisibility(){
+  togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
 
-  toggleConfirmPasswordVisibility(){
+  toggleConfirmPasswordVisibility() {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
-  
 
-  onSubmit() {
-    this.isSubmitted = true;
-
+  onSubmit(): void {
     if (this.registerForm.invalid) {
+      alert('Please fill out the form correctly');
       return;
     }
 
-    this.authService.register(this.registerForm.value).subscribe(
-      (response: any) => {
-        console.log('Registration successful', response);
+    const { password, confirmPassword } = this.registerForm.value;
+
+    if (password !== confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+
+    this.authService.register(this.registerForm.value).subscribe({
+      next: (response) => {
+        console.log('Registration successful:', response);
         this.registerForm.reset();
+        alert('Signup successful! You can now log in.');
       },
-      (error: { message: any; }) => {
-        console.error('Registration failed', error.message);
-      }
-    );
+      error: (err) => {
+        console.error('Registration failed:', err);
+        alert('Registration failed! Please try again.');
+      },
+    });
   }
 }
