@@ -8,9 +8,6 @@ import { AuthService } from '../../Auth/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-  showPassword = false;
 
   constructor(
     private fb: FormBuilder,
