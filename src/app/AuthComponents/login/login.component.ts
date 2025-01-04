@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       },
       error: (err) => {
         console.error('Login failed:', err);
-        alert('Login failed! Please check your credentials.');
+        alert('Login failed! Please check credentials.');
       },
     });
   }
