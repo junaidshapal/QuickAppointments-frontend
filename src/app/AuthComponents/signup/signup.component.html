@@ -6,7 +6,9 @@
                 <h2 class="font-bold text-2xl text-[#4F321F]">Sign Up</h2>
                 <p class="text-sm mt-4 text-[#4F321F]">Create a new account.</p>
 
-              
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-3">
+                    <input class="p-2 mt-8 rounded-xl border" type="email" id="email" formControlName="email" placeholder="Enter email">
+
                     <div class="relative">
                         <input class="p-2 rounded-xl border w-full" id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Password">
                         <svg (click)="togglePasswordVisibility()" class="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" viewBox="0 0 16 16">
