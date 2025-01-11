@@ -35,6 +35,15 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (response) => {
+        console.log('Login successful:', response);
+        this.router.navigate(['dashboard']);
+      },
+      error: (err) => {
+        console.error('Login failed:', err);
+        alert('Login failed! Please check your credentials.');
+      },
+    });
   }
 }
