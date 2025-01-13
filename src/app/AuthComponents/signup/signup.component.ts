@@ -28,19 +28,7 @@ export class SignupComponent {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
-  onSubmit(): void {
-    if (this.registerForm.invalid) {
-      alert('Please fill out the form correctly');
-      return;
-    }
-
-    const { password, confirmPassword } = this.registerForm.value;
-
-    if (password !== confirmPassword) {
-      alert('Passwords do not match');
-      return;
-    }
-
+  
     this.authService.register(this.registerForm.value).subscribe({
       next: (response) => {
         console.log('Registration successful:', response);
