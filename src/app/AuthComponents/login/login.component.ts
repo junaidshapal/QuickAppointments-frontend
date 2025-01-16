@@ -29,7 +29,12 @@ export class LoginComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  
+  login(): void {
+    if (this.loginForm.invalid) {
+      alert('Please provide valid credentials');
+      return;
+    }
+
     this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
         console.log('Login successful:', response);
