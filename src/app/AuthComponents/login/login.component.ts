@@ -23,12 +23,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
-
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
-  }
-
+  
   login(): void {
     if (this.loginForm.invalid) {
       alert('Please provide valid credentials');
