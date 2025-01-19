@@ -46,7 +46,19 @@ export class AuthService {
   }
 
   // Get Role from JWT
-  
+  getRole(): string | null {
+    const token = this.getToken();
+    if (token) {
+      try {
+        const decodedToken = (jwtDecode as any)(token);
+        return decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || null;
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return null;
+      }
+    }
+    return null;
+  }
 
   // Save Token to Local Storage
   saveToken(token: string): void {
