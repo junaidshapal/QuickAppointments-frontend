@@ -14,7 +14,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
-  // Register User
+  //Register User
   register(user: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, user).pipe(
       map((response) => {
@@ -28,7 +28,7 @@ export class AuthService {
     );
   }
 
-  // Login User
+  //Login User
   login(credentials: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       map((response: any) => {
@@ -45,7 +45,7 @@ export class AuthService {
     );
   }
 
-  // Get Role from JWT
+  //Get Role from JWT
   getRole(): string | null {
     const token = this.getToken();
     if (token) {
@@ -60,18 +60,18 @@ export class AuthService {
     return null;
   }
 
-  // Save Token to Local Storage
+  //Save Token to Local Storage
   saveToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
   }
 
-  // Logout User
+  //Logout User
   logout(): void {
     localStorage.removeItem(this.tokenKey); // Clear JWT
     console.log('User logged out successfully');
   }
 
-  // Check if User is Authenticated
+  //Check if User is Authenticated
   isAuthenticated(): boolean {
     const token = this.getToken();
     return token ? !this.jwtHelper.isTokenExpired(token) : false;
@@ -82,7 +82,7 @@ export class AuthService {
     return localStorage.getItem(this.tokenKey);
   }
 
-  // Decode JWT Token (Optional Helper)
+  //Decode JWT Token (Optional Helper)
   decodeToken(): any | null {
     const token = this.getToken();
     if (token) {
