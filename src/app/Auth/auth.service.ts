@@ -82,7 +82,7 @@ export class AuthService {
     return localStorage.getItem(this.tokenKey);
   }
 
-  // Decode JWT Token (Optional Helper)
+  // Decode JWT Token 
   decodeToken(): any | null {
     const token = this.getToken();
     if (token) {
