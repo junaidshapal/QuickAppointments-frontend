@@ -10,7 +10,7 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class AuthService {
   private apiUrl = 'https://localhost:7249/api/Auth';
-  private tokenKey = 'jwtToken'; //Key for storing JWT in local storage
+  private tokenKey = 'jwtToken'; //Key for storing JWT(Json Web Token) in local storage
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
