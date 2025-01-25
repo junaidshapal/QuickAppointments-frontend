@@ -77,12 +77,12 @@ export class AuthService {
     return token ? !this.jwtHelper.isTokenExpired(token) : false;
   }
 
-  // Get Token from Local Storage
+  //Get Token from Local Storage
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
   }
 
-  // Decode JWT Token (Optional Helper)
+  //Decode JWT Token (Optional Helper)
   decodeToken(): any | null {
     const token = this.getToken();
     if (token) {
