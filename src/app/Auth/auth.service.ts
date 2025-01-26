@@ -21,11 +21,7 @@ export class AuthService {
         console.log('Registration successful:', response);
         return response;
       }),
-      catchError((error) => {
-        console.error('Registration error:', error);
-        return throwError(() => error);
-      })
-    );
+     
   }
 
   // Login User
