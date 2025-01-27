@@ -60,7 +60,11 @@ export class AuthService {
     return null;
   }
 
- 
+  //Save Token to Local Storage
+  saveToken(token: string): void {
+    localStorage.setItem(this.tokenKey, token);
+  }
+
   //Logout User
   logout(): void {
     localStorage.removeItem(this.tokenKey); // Clear JWT
