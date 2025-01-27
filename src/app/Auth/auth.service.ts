@@ -15,18 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
   //Register User
-  register(user: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, user).pipe(
-      map((response) => {
-        console.log('Registration successful:', response);
-        return response;
-      }),
-      catchError((error) => {
-        console.error('Registration error:', error);
-        return throwError(() => error);
-      })
-    );
-  }
+  
 
   // Login User
   login(credentials: any): Observable<any> {
