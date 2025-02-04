@@ -13,7 +13,13 @@ export class SignupComponent {
   showPassword = false;
   showConfirmPassword = false;
 
-  
+  constructor(private fb: FormBuilder, private authService: AuthService) {
+    this.registerForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required],
+    });
+  }
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
