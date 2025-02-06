@@ -84,5 +84,16 @@ export class AuthService {
   }
 
   //Decode JWT Token (Optional Helper)
-  
+  decodeToken(): any | null {
+    const token = this.getToken();
+    if (token) {
+      try {
+        return (jwtDecode as any)(token);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return null;
+      }
+    }
+    return null;
+  }
 }
