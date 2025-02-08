@@ -21,7 +21,9 @@ export class SignupComponent {
     });
   }
 
-  
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
   toggleConfirmPasswordVisibility() {
     this.showConfirmPassword = !this.showConfirmPassword;
