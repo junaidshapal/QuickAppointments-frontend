@@ -38,7 +38,7 @@ export class SignupComponent {
     const { password, confirmPassword } = this.registerForm.value;
 
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
+      alert('Passwords does not match');
       return;
     }
 
