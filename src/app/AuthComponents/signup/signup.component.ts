@@ -50,7 +50,7 @@ export class SignupComponent {
       },
       error: (err) => {
         console.error('Registration failed:', err);
-        alert('Registration failed! Please try again.');
+        alert('Registration failed! Please try again later.');
       },
     });
   }
