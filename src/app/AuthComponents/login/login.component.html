@@ -10,7 +10,6 @@
           </p>
   
           <form [formGroup]="loginForm" (ngSubmit)="login()" class="flex flex-col gap-4">
-            <!-- Email Input -->
             <input
               formControlName="email"
               class="p-2 mt-8 rounded-xl border"
@@ -21,7 +20,6 @@
               Please enter a valid email address.
             </div>
   
-            <!-- Password Input -->
             <div class="relative">
               <svg
                 (click)="togglePasswordVisibility()"
