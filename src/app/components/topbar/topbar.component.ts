@@ -1,4 +1,6 @@
 import { Component, HostListener } from '@angular/core';
+import { AuthService } from '../../Auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-topbar',
@@ -7,6 +9,8 @@ import { Component, HostListener } from '@angular/core';
 })
 export class TopbarComponent {
   isDropdownOpen = false;
+
+  constructor(private authService:AuthService, private router:Router) {}
 
   //Toggle dropdown visibility
   toggleDropdown() {
@@ -25,6 +29,7 @@ export class TopbarComponent {
 
   //Handle logout logic
   logout() {
-    console.log('User logged out');
+    this.authService.logout();  // Clears token from localStorage
+    this.router.navigate(['/login']); // Redirects to login page
   }
 }
