@@ -1,18 +1,22 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'QuickAppointments';
+export class AppComponent implements OnInit {
+  showNavbar = true;
 
-  constructor(public router:Router){}
+  constructor(private router: Router) {}
 
-  showNavbar(){
-    const cuurentRoute = this.router.url;
-    return cuurentRoute !== '/login' && cuurentRoute !== '/signup';
+  ngOnInit(): void {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        // Hide navbar for login and register routes
+        this.showNavbar = !(event.url === '/login' || event.url === '/signup');
+      }
+    });
   }
 }

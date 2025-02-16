@@ -5,7 +5,7 @@
   <!-- Main Content with Sidebar -->
   <div class="flex flex-1">
     <!-- Sidebar -->
-    <app-navbar></app-navbar>
+    <app-navbar *ngIf="showNavbar"></app-navbar>  <!-- Conditionally show navbar -->
 
     <!-- Main Content Area -->
     <div class="flex-1 bg-gray-100 overflow-auto p-4">
