@@ -11,6 +11,8 @@ import { RolesManagementComponent } from './userManagement/roles-management/role
 import { SetupScheduleComponent } from './components/setup-schedule/setup-schedule.component';
 import { MySchedulesComponent } from './components/my-schedules/my-schedules.component';
 import { AuthGuard } from './Auth/auth.guard';
+import { DoctorListComponent } from './components/Doctor/doctor-list/doctor-list.component';
+import { AddDoctorComponent } from './components/Doctor/add-doctor/add-doctor.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'login', pathMatch:'full'},
@@ -22,6 +24,9 @@ const routes: Routes = [
   { path: 'roles-management', component: RolesManagementComponent, canActivate: [AuthGuard]},
   { path: 'setup-schedule', component: SetupScheduleComponent, canActivate: [AuthGuard]  },
   { path: 'my-schedules', component: MySchedulesComponent, canActivate: [AuthGuard]  },
+  { path: 'doctors-list', component: DoctorListComponent  },
+  { path: 'add-doctor', component: AddDoctorComponent  },
+
   { path: '**', redirectTo: 'login' },
 
 ];
