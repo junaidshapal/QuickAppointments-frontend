@@ -8,7 +8,7 @@ import { LoginComponent } from './AuthComponents/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthInterceptor } from './Auth/token.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppointmentsComponent } from './components/appointments/appointments.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -17,6 +17,7 @@ import { UsersManagementComponent } from './userManagement/users-management/user
 import { RolesManagementComponent } from './userManagement/roles-management/roles-management.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { SetupScheduleComponent } from './components/setup-schedule/setup-schedule.component';
+import { HttpClientModule } from '@angular/common/http';
 
 // Angular Material Modules
 import { MatCardModule } from '@angular/material/card';
