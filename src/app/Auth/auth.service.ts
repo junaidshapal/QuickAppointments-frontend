@@ -1,18 +1,25 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import * as jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = 'https://localhost:7249/api/Auth';
-  private tokenKey = 'jwtToken'; //Key for storing JWT(Json Web Token) in local storage
+  private tokenKey = 'jwtToken';  // Key for storing JWT in local storage
 
-  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
+  constructor(
+    private http: HttpClient,
+    private jwtHelper: JwtHelperService,
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: any  //Added for SSR handling
+  ) {}
 
   //Register User
   register(user: any): Observable<any> {
@@ -50,8 +57,8 @@ export class AuthService {
     const token = this.getToken();
     if (token) {
       try {
-        const decodedToken = (jwtDecode as any)(token);
-        return decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || null;
+        const decodedToken: any = jwtDecode(token);  //Corrected decoding
+        return decodedToken?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || null;
       } catch (error) {
         console.error('Error decoding token:', error);
         return null;
@@ -60,16 +67,21 @@ export class AuthService {
     return null;
   }
 
-  //Save Token to Local Storage
+  //Save Token to Local Storage (Only in browser)
   saveToken(token: string): void {
-    localStorage.setItem(this.tokenKey, token);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(this.tokenKey, token);
+    }
   }
 
-  
   //Logout User
   logout(): void {
-    localStorage.removeItem(this.tokenKey); // Clear JWT
-    console.log('User logged out successfully');
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem(this.tokenKey);
+    }
+    this.router.navigate(['/login']).then(() => {
+      window.location.reload();  //Ensures navbar visibility updates correctly
+    });
   }
 
   //Check if User is Authenticated
@@ -78,9 +90,9 @@ export class AuthService {
     return token ? !this.jwtHelper.isTokenExpired(token) : false;
   }
 
-  //Get Token from Local Storage
+  //Get Token from Local Storage (Only in browser)
   getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+    return isPlatformBrowser(this.platformId) ? localStorage.getItem(this.tokenKey) : null;
   }
 
   //Decode JWT Token (Optional Helper)
@@ -88,7 +100,7 @@ export class AuthService {
     const token = this.getToken();
     if (token) {
       try {
-        return (jwtDecode as any)(token);
+        return jwtDecode(token);
       } catch (error) {
         console.error('Error decoding token:', error);
         return null;
