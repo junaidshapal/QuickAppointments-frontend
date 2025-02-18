@@ -1,53 +1,59 @@
-import { Component } from '@angular/core';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AppointmentService } from '../../services/appointment.service';
+import { Appointment } from '../../models/appointment.model';
+import { Router } from '@angular/router';
+import { AddAppointmentComponent } from '../appointment/add-appointment/add-appointment.component';
+import { MatDialog } from '@angular/material/dialog';
+import { AppointmentDetailComponent } from '../appointment/appointment-detail/appointment-detail.component';
 
 @Component({
   selector: 'app-appointments',
-  templateUrl: './appointments.component.html',
-  styleUrls: ['./appointments.component.css']
+  templateUrl: './appointments.component.html'
 })
-export class AppointmentsComponent {
-  appointments = [
-    { clientName: 'Junaid Shahpal', date: '2024-10-16', time: '10:00 AM', purpose: 'Business Meeting' },
-    { clientName: 'Juni dev', date: '2024-10-17', time: '11:30 AM', purpose: 'Consultation' },
-    { clientName: 'Abdul Khan', date: '2024-10-18', time: '02:00 PM', purpose: 'New Project' },
-    { clientName: 'Touseef Mughal', date: '2024-10-19', time: '09:00 AM', purpose: 'Interview' },
-    { clientName: 'Husnain Aftab Mughal', date: '2024-10-20', time: '01:00 PM', purpose: 'Consultation' },
-    { clientName: 'Abdal Mughal', date: '2024-10-24', time: '02:00 PM', purpose: 'Normal Checkup' },
-  ];
+export class AppointmentsComponent implements OnInit {
+  appointments: Appointment[] = [];
+  pageSize = 3;
+  currentPage = 1;
+  totalItems = 0;
 
-  //FontAwesome icons
-  faEdit = faEdit;
-  faTrash = faTrash;
+  @ViewChild(AddAppointmentComponent) addAppointmentComponent!: AddAppointmentComponent;
 
-  //Drawer state
-  drawerOpen = false;
+  constructor(
+    private appointmentService: AppointmentService,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
 
-  //New appointment object
-  newAppointment = { clientName: '', date: '', time: '', purpose: '' };
-
-  //Pagination properties
-  pageSize = 3; //Number of items per page
-  currentPage = 1; //Current page
-  totalItems = this.appointments.length; // Total number of appointments
-
-  // Getter for total pages
-  get totalPages() {
-    return Math.ceil(this.totalItems / this.pageSize);
+  ngOnInit() {
+    this.loadAppointments();
   }
 
-  // Getter for total pages as an array (used for page navigation)
-  get totalPagesArray() {
-    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  loadAppointments() {
+    this.appointmentService.getAppointments().subscribe(data => {
+      this.appointments = data || [];
+      this.totalItems = this.appointments.length;
+    });
   }
 
-  //Get paginated appointments (appointments displayed on the current page)
   get paginatedAppointments() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     return this.appointments.slice(startIndex, startIndex + this.pageSize);
   }
 
-  //Pagination methods
+  get totalPages() {
+    return Math.ceil(this.totalItems / this.pageSize);
+  }
+
+  get totalPagesArray() {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  get paginationSummary() {
+    const startItem = (this.currentPage - 1) * this.pageSize + 1;
+    const endItem = Math.min(this.currentPage * this.pageSize, this.totalItems);
+    return `Showing ${startItem} - ${endItem} out of ${this.totalItems}`;
+  }
+
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
@@ -64,62 +70,27 @@ export class AppointmentsComponent {
     this.currentPage = page;
   }
 
-  //Method for Display pagination summary
-  get paginationSummary() {
-    const startItem = (this.currentPage - 1) * this.pageSize + 1;
-    const endItem = Math.min(this.currentPage * this.pageSize, this.totalItems);
-    return `Showing ${startItem} - ${endItem} out of ${this.totalItems}`;
+  openAddAppointment() {
+    this.addAppointmentComponent.openDrawer();
   }
 
-  //Open the new appointment drawer
-  openNewAppointment() {
-    this.drawerOpen = true;
+  // viewDetails(appointmentId: number) {
+  //   this.router.navigate(['/appointment', appointmentId]);
+  // }
+  viewDetails(appointment: Appointment) {
+    const dialogRef = this.dialog.open(AppointmentDetailComponent, {
+      width: '500px',
+      data: appointment
+    });
+
+    // Fix hover issue after closing modal
+    dialogRef.afterClosed().subscribe(() => {
+      (document.activeElement as HTMLElement)?.blur();
+    });
   }
 
-  //Close the new appointment drawer
-  closeNewAppointment() {
-    this.drawerOpen = false;
-    this.resetNewAppointment();
-  }
-
-  //Save the new appointment
-  saveAppointment() {
-    if (
-      this.newAppointment.clientName &&
-      this.newAppointment.date &&
-      this.newAppointment.time &&
-      this.newAppointment.purpose
-    ) {
-      this.appointments.push({ ...this.newAppointment });
-      this.totalItems = this.appointments.length; // Update total items
-      this.resetNewAppointment();
-      this.drawerOpen = false;
-    } else {
-      alert('Please fill out all fields.');
-    }
-  }
-
-  //Reset the new appointment form
-  resetNewAppointment() {
-    this.newAppointment = { clientName: '', date: '', time: '', purpose: '' };
-  }
-
-  //Delete appointment method
-  deleteAppointment(appointmentToDelete: any) {
-    const confirmed = confirm('Are you sure you want to delete this appointment?');
-    if (confirmed) {
-      this.appointments = this.appointments.filter(
-        appointment => appointment !== appointmentToDelete
-      );
-      this.totalItems = this.appointments.length; // Update total items
-      if (this.currentPage > this.totalPages) {
-        this.currentPage = this.totalPages; // Adjust current page if it exceeds total pages
-      }
-    }
-  }
-
-  //Edit appointment method
-  editAppointment(appointmentToEdit: any) {
-    console.log('Editing appointment:', appointmentToEdit);
+  onAppointmentAdded(newAppointment: Appointment) {
+    this.appointments.push(newAppointment);
+    this.totalItems = this.appointments.length;
   }
 }

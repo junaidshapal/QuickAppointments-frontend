@@ -1,67 +1,94 @@
-<div class="container mx-auto p-6">
-  <!-- Page Heading -->
-  <div class="flex items-center justify-between mb-6">
-    <!-- Heading -->
-    <h1 class="text-2xl font-semibold text-gray-800">Appointments</h1>
-  
-    <!-- Button -->
+<div class="p-6 bg-white shadow-lg rounded-lg">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-xl font-semibold text-gray-700">Appointments</h2>
     <button
       class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300"
-      (click)="openNewAppointment()"
+      (click)="openAddAppointment()"
     >
-      Appointment
+      New Appointment
     </button>
   </div>
-  
 
-  <!-- Data Table with Pagination, Update, and Delete -->
-  <div class="relative overflow-x-auto shadow-lg rounded-lg border border-gray-300">
+  <div class="relative overflow-x-auto shadow-md rounded-lg border border-gray-300">
     <table class="w-full text-sm text-left text-black">
-      <!-- Table Header -->
       <thead class="text-sm uppercase bg-blue-200 text-black font-bold">
         <tr>
-          <th scope="col" class="px-6 py-3">#</th>
-          <th scope="col" class="px-6 py-3">Client Name</th>
-          <th scope="col" class="px-6 py-3">Date</th>
-          <th scope="col" class="px-6 py-3">Time</th>
-          <th scope="col" class="px-6 py-3">Purpose</th>
-          <th scope="col" class="px-6 py-3 text-center">Actions</th>
+          <th scope="col" class="px-4 py-3">#</th>
+          <th scope="col" class="px-4 py-3">Doctor</th>
+          <th scope="col" class="px-4 py-3">Date</th>
+          <th scope="col" class="px-4 py-3">Time</th>
+          <th scope="col" class="px-4 py-3">Status</th>
+          <th scope="col" class="px-4 py-3 text-center">Actions</th>
         </tr>
       </thead>
-      <!-- Table Body -->
       <tbody>
-        <tr
-          *ngFor="let appointment of paginatedAppointments; let i = index"
-          class="border-b bg-gray-50 hover:bg-gray-100 transition duration-200"
-        >
-          <td class="px-6 py-4 font-medium text-black">{{ (currentPage - 1) * pageSize + i + 1 }}</td>
-          <td class="px-6 py-4 text-black">{{ appointment.clientName }}</td>
-          <td class="px-6 py-4 text-black">{{ appointment.date }}</td>
-          <td class="px-6 py-4 text-black">{{ appointment.time }}</td>
-          <td class="px-6 py-4 text-black">{{ appointment.purpose }}</td>
-          <td class="px-6 py-4 text-center">
-            <fa-icon
-            [icon]="faEdit"
-            class="text-blue-600 hover:text-blue-800 mx-2 cursor-pointer transition duration-200"
-            (click)="editAppointment(appointment)"
-          ></fa-icon>
-          <fa-icon
-            [icon]="faTrash"
-            class="text-red-600 hover:text-red-800 mx-2 cursor-pointer transition duration-200"
-            (click)="deleteAppointment(appointment)"
-          ></fa-icon>
+        <tr *ngFor="let appointment of paginatedAppointments; let i = index"
+            class="border-b bg-gray-50 hover:bg-gray-100 transition duration-200">
+          <td class="px-4 py-3 font-medium text-black">{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+          <td class="px-4 py-3 text-black">{{ appointment.doctorId }}</td>
+          <td class="px-4 py-3 text-black">{{ appointment.appointmentDate | date: 'yyyy-MM-dd' }}</td>
+          <td class="px-4 py-3 text-black">{{ appointment.startTime }} - {{ appointment.endTime }}</td>
+          <td class="px-4 py-3 text-black">
+            <span [ngClass]="{
+              'text-green-600': appointment.status === 'Confirmed',
+              'text-yellow-600': appointment.status === 'Pending',
+              'text-red-600': appointment.status === 'Canceled',
+              'text-blue-600': appointment.status === 'Completed'
+            }">
+              {{ appointment.status }}
+            </span>
+          </td>
+          <td class="px-4 py-3 text-center">
+            <button mat-icon-button color="primary" (click)="viewDetails(appointment)">
+              <mat-icon>visibility</mat-icon>
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+  <!-- <div class="relative overflow-x-auto shadow-md rounded-lg border border-gray-300">
+    <table class="w-full text-sm text-left text-black">
+      <thead class="text-sm uppercase bg-blue-200 text-black font-bold">
+        <tr>
+          <th scope="col" class="px-4 py-3">#</th>
+          <th scope="col" class="px-4 py-3">Doctor</th>
+          <th scope="col" class="px-4 py-3">Date</th>
+          <th scope="col" class="px-4 py-3">Time</th>
+          <th scope="col" class="px-4 py-3">Status</th>
+          <th scope="col" class="px-4 py-3 text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appointment of paginatedAppointments; let i = index"
+            class="border-b bg-gray-50 hover:bg-gray-100 transition duration-200">
+          <td class="px-4 py-3 font-medium text-black">{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+          <td class="px-4 py-3 text-black">{{ appointment.doctorId }}</td>
+          <td class="px-4 py-3 text-black">{{ appointment.appointmentDate | date: 'yyyy-MM-dd' }}</td>
+          <td class="px-4 py-3 text-black">{{ appointment.startTime }} - {{ appointment.endTime }}</td>
+          <td class="px-4 py-3 text-black">
+            <span [ngClass]="{
+              'text-green-600': appointment.status === 'Confirmed',
+              'text-yellow-600': appointment.status === 'Pending',
+              'text-red-600': appointment.status === 'Canceled',
+              'text-blue-600': appointment.status === 'Completed'
+            }">
+              {{ appointment.status }}
+            </span>
+          </td>
+          <td class="px-4 py-3 text-center">
+            <button mat-icon-button color="primary" (click)="viewDetails(appointment.id)">
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
 
   <!-- Pagination -->
   <div class="flex justify-between items-center mt-4">
-    <!-- Pagination Summary -->
     <div class="text-gray-500 text-sm">{{ paginationSummary }}</div>
-  
-    <!-- Pagination Controls -->
     <div class="flex justify-end items-center space-x-2">
       <button
         class="px-3 py-1 rounded border border-gray-300 bg-gray-100 hover:bg-gray-200"
@@ -71,7 +98,7 @@
         Prev
       </button>
       <button
-        *ngFor="let page of totalPagesArray; let i = index"
+        *ngFor="let page of totalPagesArray"
         class="px-3 py-1 rounded border border-gray-300"
         [ngClass]="{ 'bg-blue-500 text-white': currentPage === page, 'bg-gray-100 hover:bg-gray-200': currentPage !== page }"
         (click)="goToPage(page)"
@@ -87,78 +114,7 @@
       </button>
     </div>
   </div>
-  
 
-  <!-- Overlay for Drawer -->
-  <div
-    class="fixed inset-0 bg-black bg-opacity-50"
-    *ngIf="drawerOpen"
-    (click)="closeNewAppointment()"
-  ></div>
-
-  <!-- Right-Side Drawer -->
-  <div
-    class="fixed right-0 top-0 w-96 h-full bg-white shadow-lg p-6 transition-transform duration-300"
-    [ngClass]="{ 'translate-x-full': !drawerOpen, 'translate-x-0': drawerOpen }"
-    (click)="$event.stopPropagation()"
-  >
-    <h2 class="text-xl font-semibold mb-4 text-black-800">New Appointment</h2>
-    <form (submit)="saveAppointment()">
-      <div class="mb-4">
-        <label class="block text-black-700 mb-2" for="clientName">Client Name</label>
-        <input
-          type="text"
-          id="clientName"
-          class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-500"
-          [(ngModel)]="newAppointment.clientName"
-          name="clientName"
-        />
-      </div>
-      <div class="mb-4">
-        <label class="block text-black-700 mb-2" for="date">Date</label>
-        <input
-          type="date"
-          id="date"
-          class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-500"
-          [(ngModel)]="newAppointment.date"
-          name="date"
-        />
-      </div>
-      <div class="mb-4">
-        <label class="block text-black-700 mb-2" for="time">Time</label>
-        <input
-          type="time"
-          id="time"
-          class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-500"
-          [(ngModel)]="newAppointment.time"
-          name="time"
-        />
-      </div>
-      <div class="mb-4">
-        <label class="block text-black-700 mb-2" for="purpose">Purpose</label>
-        <input
-          type="text"
-          id="purpose"
-          class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-500"
-          [(ngModel)]="newAppointment.purpose"
-          name="purpose"
-        />
-      </div>
-      <div class="flex justify-between">
-        <button
-          type="button"
-          class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-200"
-          (click)="closeNewAppointment()"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200"
-        >
-          Save Appointment
-        </button>
-      </div>
-    </form>
-  </div>
+  <!-- Appointment Drawer -->
+  <app-add-appointment (appointmentAdded)="onAppointmentAdded($event)"></app-add-appointment>
 </div>
