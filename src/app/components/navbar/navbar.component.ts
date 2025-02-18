@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faBars, faTimes, faHome, faInfoCircle, faCog, faPhone, faUser, faUserCheck, faClipboardList, faAmbulance } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes, faHome, faInfoCircle, faCog, faPhone, faUser, faUserCheck, faClipboardList, faAmbulance, faCalendarAlt, faClipboardUser, faUserMd, faBuilding, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navbar',
@@ -16,13 +16,16 @@ export class NavbarComponent {
 
   // Navigation links
   navLinks = [
-    { name: 'Dashboard', route: '/dashboard', icon: faHome },
+    { name: 'Dashboard', route: '/dashboard', icon: faHome }, 
     { name: 'Users', route: '/users-management', icon: faUser },
     { name: 'Appointment', route: '/appointments', icon: faClipboardList },
-    { name: 'Roles', route: '/roles-management', icon: faUserCheck },
-    { name: 'Schedule', route: '/setup-schedule', icon: faAmbulance },
-    {name: 'My-Schedules', route: '/my-schedules', icon: faAmbulance},
-  ];
+    { name: 'Roles', route: '/roles-management', icon: faUserCheck }, 
+    { name: 'Schedule', route: '/setup-schedule', icon: faCalendarAlt },
+    { name: 'My-Schedules', route: '/my-schedules', icon: faClipboardUser }, 
+    { name: 'Doctor', route: '/doctors-list', icon: faUserMd }, 
+    { name: 'Departments', route: '/departments', icon: faBuilding }, 
+    { name: 'Add Department', route: '/add-department', icon: faPlusCircle }
+];
 
   // Toggle sidebar visibility
   toggleSidebar() {

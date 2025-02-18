@@ -7,11 +7,14 @@ import { Department } from '../models/department.model';
   providedIn: 'root'
 })
 export class DepartmentService {
-  private apiUrl = 'https://localhost:5001/api/departments';
+  private apiUrl = 'https://localhost:7249/api/department';
 
   constructor(private http: HttpClient) {}
 
   getDepartments(): Observable<Department[]> {
     return this.http.get<Department[]>(this.apiUrl);
+  }
+  addDepartment(department: Department): Observable<any> {
+    return this.http.post(this.apiUrl, department);
   }
 }

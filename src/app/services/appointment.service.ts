@@ -7,7 +7,7 @@ import { Appointment } from '../models/appointment.model';
   providedIn: 'root'
 })
 export class AppointmentService {
-  private apiUrl = 'https://localhost:5001/api/appointments';
+  private apiUrl = 'https://localhost:7249/api/Appointment';
 
   constructor(private http: HttpClient) {}
 
@@ -24,6 +24,6 @@ export class AppointmentService {
   }
 
   bookAppointment(appointment: Appointment): Observable<any> {
-    return this.http.post(this.apiUrl, appointment);
+    return this.http.post(this.apiUrl, appointment, { responseType: 'text' }); // Fix: Handle text response
   }
 }
