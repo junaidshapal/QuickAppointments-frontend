@@ -1,0 +1,35 @@
+<mat-dialog-content class="p-6 bg-white rounded-lg">
+  <div class="flex justify-between items-center">
+    <h2 class="text-xl font-semibold text-gray-700">Appointment Detail</h2>
+    <button mat-icon-button (click)="close()" class="hover:text-gray-500 focus:outline-none">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="flex items-center mt-4">
+    <!-- Dummy Doctor Icon -->
+    <img
+      src="https://randomuser.me/api/portraits/men/32.jpg"
+      alt="Profile"
+      class="h-12 w-12 rounded-full border-2 border-gray-300"
+    />
+    <h3 class="text-lg font-semibold ml-4">Dr. {{ appointment.doctorId }}</h3>
+  </div>
+
+  <div class="grid grid-cols-2 gap-4 mt-4">
+    <p><strong>Customer ID:</strong> {{ appointment.customerId }}</p>
+    <p><strong>Date:</strong> {{ appointment.appointmentDate | date: 'dd MMM yyyy' }}</p>
+    <p><strong>Start Time:</strong> {{ appointment.startTime }}</p>
+    <p><strong>End Time:</strong> {{ appointment.endTime }}</p>
+    <p><strong>Status:</strong> 
+      <span [ngClass]="{
+        'text-green-600': appointment.status === 'Confirmed',
+        'text-yellow-600': appointment.status === 'Pending',
+        'text-red-600': appointment.status === 'Canceled',
+        'text-blue-600': appointment.status === 'Completed'
+      }">
+        {{ appointment.status }}
+      </span>
+    </p>
+  </div>
+</mat-dialog-content>
