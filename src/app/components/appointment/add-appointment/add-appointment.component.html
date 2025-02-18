@@ -1,0 +1,43 @@
+<div class="fixed inset-0 bg-black bg-opacity-50" *ngIf="drawerOpen" (click)="closeDrawer()"></div>
+
+<div class="fixed right-0 top-0 w-80 h-full bg-white shadow-lg p-6 transition-transform duration-300"
+     [ngClass]="{ 'translate-x-full': !drawerOpen, 'translate-x-0': drawerOpen }"
+     (click)="$event.stopPropagation()">
+  
+  <h2 class="text-xl font-semibold mb-4 text-gray-700">Book Appointment</h2>
+
+  <form #appointmentForm="ngForm" (ngSubmit)="bookAppointment()" class="space-y-4">
+    <mat-form-field class="w-full">
+      <mat-label>Doctor</mat-label>
+      <mat-select [(ngModel)]="appointment.doctorId" name="doctorId" required>
+        <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
+          {{ doctor.name }} - {{ doctor.specialty }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>Date</mat-label>
+      <input matInput type="date" [(ngModel)]="appointment.appointmentDate" name="appointmentDate" required />
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>Start Time</mat-label>
+      <input matInput type="time" [(ngModel)]="appointment.startTime" name="startTime" required />
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>End Time</mat-label>
+      <input matInput type="time" [(ngModel)]="appointment.endTime" name="endTime" required />
+    </mat-form-field>
+
+    <div class="flex justify-between">
+      <button type="button" class="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600 transition duration-200"
+              (click)="closeDrawer()">Cancel</button>
+      <button type="submit" class="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition duration-200"
+              [disabled]="appointmentForm.invalid">
+        Book
+      </button>
+    </div>
+  </form>
+</div>
