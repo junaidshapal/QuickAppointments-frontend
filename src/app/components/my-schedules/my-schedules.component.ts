@@ -1,63 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AvailabilityService } from '../../services/availability.service';
+import { Availability } from '../../models/availability.model';
 
 @Component({
   selector: 'app-my-schedules',
-  templateUrl: './my-schedules.component.html',
-  styleUrls: ['./my-schedules.component.css'],
+  templateUrl: './my-schedules.component.html'
 })
-export class MySchedulesComponent {
-  // Mock data for schedules
-  schedules = [
-    {
-      day: 'Monday',
-      date: '2024-12-18',
-      startTime: '08:00 AM',
-      endTime: '05:00 PM',
-      active: true,
-    },
-    {
-      day: 'Tuesday',
-      date: '2024-12-19',
-      startTime: '10:00 AM',
-      endTime: '04:00 PM',
-      active: true,
-    },
-    {
-      day: 'Wednesday',
-      date: '2024-11-20',
-      startTime: '11:00 AM',
-      endTime: '03:00 PM',
-      active: false,
-    },
-    {
-      day: 'Thursday',
-      date: '2024-10-21',
-      startTime: '09:00 AM',
-      endTime: '02:00 PM',
-      active: true,
-    },
-    {
-      day: 'Friday',
-      date: '2024-12-22',
-      startTime: '09:30 AM',
-      endTime: '04:30 PM',
-      active: false,
-    },
-  ];
+export class MySchedulesComponent implements OnInit {
+  availabilities: Availability[] = [];
 
-  // Edit schedule action
-  editSchedule(schedule: any) {
-    console.log('Editing schedule:', schedule);
-    // Add logic to edit the schedule
-  }
+  constructor(private availabilityService: AvailabilityService) {}
 
-  // Delete schedule action
-  deleteSchedule(schedule: any) {
-    const confirmed = confirm(
-      `Are you sure you want to delete the schedule for ${schedule.day}?`
-    );
-    if (confirmed) {
-      this.schedules = this.schedules.filter((s) => s !== schedule);
-    }
+  ngOnInit() {
+    const doctorId = 1; // Assume logged-in doctor
+    this.availabilityService.getAvailabilityByDoctor(doctorId).subscribe(data => {
+      this.availabilities = data;
+    });
   }
 }

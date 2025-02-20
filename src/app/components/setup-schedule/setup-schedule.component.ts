@@ -1,26 +1,25 @@
 import { Component } from '@angular/core';
+import { AvailabilityService } from '../../services/availability.service';
+import { Availability } from '../../models/availability.model';
 
 @Component({
   selector: 'app-setup-schedule',
-  templateUrl: './setup-schedule.component.html',
-  styleUrls: ['./setup-schedule.component.css'],
+  templateUrl: './setup-schedule.component.html'
 })
 export class SetupScheduleComponent {
-  //Days of the week
-  daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
-  //Schedule data
-  schedule = this.daysOfWeek.map(day => ({
-    day,
+  availability: Availability = {
+    id: 0,
+    doctorId: 1, // Assuming logged-in doctor
+    availableDate: '',
     startTime: '',
-    endTime: '',
-    available: false,
-  }));
+    endTime: ''
+  };
 
-  //Save the schedule
-  saveSchedule() {
-    const availableDays = this.schedule.filter(day => day.available);
-    console.log('Saved schedule:', availableDays);
-    alert('Schedule saved successfully!');
+  constructor(private availabilityService: AvailabilityService) {}
+
+  setAvailability() {
+    this.availabilityService.addAvailability(this.availability).subscribe(() => {
+      alert('Availability set successfully');
+    });
   }
 }

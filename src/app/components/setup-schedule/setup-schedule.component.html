@@ -1,36 +1,24 @@
-<div class="container mx-auto p-6">
-  <!-- Page Title and Save Button -->
-  <div class="flex items-center justify-between mb-6">
-    <h1 class="text-3xl font-semibold">Setup Schedule</h1>
-    <button mat-raised-button color="primary" (click)="saveSchedule()" class="px-6 py-3">
-      Save Schedule
+<div class="p-6 bg-white shadow-lg rounded-lg max-w-lg mx-auto">
+  <h2 class="text-xl font-semibold mb-4 text-gray-700">Set Your Availability</h2>
+
+  <form (ngSubmit)="setAvailability()" class="space-y-4">
+    <mat-form-field class="w-full">
+      <mat-label>Date</mat-label>
+      <input matInput type="date" [(ngModel)]="availability.availableDate" name="availableDate" required />
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>Start Time</mat-label>
+      <input matInput type="time" [(ngModel)]="availability.startTime" name="startTime" required />
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>End Time</mat-label>
+      <input matInput type="time" [(ngModel)]="availability.endTime" name="endTime" required />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" class="w-full">
+      Save Availability
     </button>
-  </div>
-
-  <!-- Schedule Form -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <mat-card *ngFor="let day of schedule" class="shadow-lg">
-      <mat-card-header>
-        <mat-checkbox [(ngModel)]="day.available" color="primary">
-          <span class="text-lg font-medium">{{ day.day }}</span>
-        </mat-checkbox>
-      </mat-card-header>
-
-      <mat-card-content>
-        <div *ngIf="day.available" class="flex flex-col gap-4">
-          <!-- Start Time -->
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Start Time</mat-label>
-            <input matInput type="time" [(ngModel)]="day.startTime" />
-          </mat-form-field>
-
-          <!-- End Time -->
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label>End Time</mat-label>
-            <input matInput type="time" [(ngModel)]="day.endTime" />
-          </mat-form-field>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
+  </form>
 </div>

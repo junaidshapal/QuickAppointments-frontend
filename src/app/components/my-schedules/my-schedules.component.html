@@ -1,64 +1,22 @@
-<div class="container mx-auto p-6">
-    <!-- Page Heading -->
-    <h1 class="text-3xl font-bold text-left mb-8">My Schedules</h1>
-  
-    <!-- Cards Wrapper -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <mat-card
-        *ngFor="let schedule of schedules"
-        class="shadow-lg hover:shadow-xl transition-shadow duration-300"
-      >
-        <mat-card-header>
-          <div
-            mat-card-avatar
-            class="bg-blue-500 w-12 h-12 rounded-full flex items-center justify-center text-white font-bold"
-          >
-            {{ schedule.day[0] }}
-          </div>
-          <mat-card-title class="text-lg font-semibold text-gray-800">
-            {{ schedule.day }}
-          </mat-card-title>
-          <mat-card-subtitle class="text-sm text-gray-500">
-            {{ schedule.date }}
-          </mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p class="text-sm text-gray-600 mb-2">
-            <strong>Start Time:</strong> {{ schedule.startTime }}
-          </p>
-          <p class="text-sm text-gray-600 mb-2">
-            <strong>End Time:</strong> {{ schedule.endTime }}
-          </p>
-          <p class="text-sm text-gray-600">
-            <strong>Status:</strong>
-            <span
-              [ngClass]="{
-                'text-green-500': schedule.active,
-                'text-red-500': !schedule.active
-              }"
-            >
-              {{ schedule.active ? 'Active' : 'Inactive' }}
-            </span>
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button
-            mat-raised-button
-            color="primary"
-            class="mr-2"
-            (click)="editSchedule(schedule)"
-          >
-            Edit
-          </button>
-          <button
-            mat-raised-button
-            color="warn"
-            (click)="deleteSchedule(schedule)"
-          >
-            Delete
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-  </div>
-  
+<div class="p-6 bg-white shadow-lg rounded-lg">
+  <h2 class="text-xl font-semibold mb-4 text-gray-700">My Schedule</h2>
+
+  <mat-table [dataSource]="availabilities" class="w-full">
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+      <mat-cell *matCellDef="let availability">
+        {{ availability.availableDate }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="time">
+      <mat-header-cell *matHeaderCellDef> Time </mat-header-cell>
+      <mat-cell *matCellDef="let availability">
+        {{ availability.startTime }} - {{ availability.endTime }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="['date', 'time']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['date', 'time'];"></mat-row>
+  </mat-table>
+</div>
