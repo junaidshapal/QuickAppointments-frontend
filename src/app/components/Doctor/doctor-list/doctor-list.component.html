@@ -1,0 +1,72 @@
+<div class="p-6 bg-white shadow-lg rounded-lg">
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-xl font-semibold text-gray-700">Doctors List</h2>
+    <button
+      class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300"
+      (click)="openAddDoctor()"
+    >
+      Add Doctor
+    </button>
+  </div>
+
+  <div class="relative overflow-x-auto shadow-lg rounded-lg border border-gray-300">
+    <table class="w-full text-sm text-left text-black">
+      <thead class="text-sm uppercase bg-blue-200 text-black font-bold">
+        <tr>
+          <th scope="col" class="px-6 py-3">#</th>
+          <th scope="col" class="px-6 py-3">Name</th>
+          <th scope="col" class="px-6 py-3">Specialty</th>
+          <th scope="col" class="px-6 py-3">Email</th>
+          <th scope="col" class="px-6 py-3">Phone Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let doctor of paginatedDoctors; let i = index"
+          class="border-b bg-gray-50 hover:bg-gray-100 transition duration-200"
+        >
+          <td class="px-6 py-4">{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+          <td class="px-6 py-4">{{ doctor.name }}</td>
+          <td class="px-6 py-4">{{ doctor.specialty }}</td>
+          <td class="px-6 py-4">{{ doctor.email }}</td>
+          <td class="px-6 py-4">{{ doctor.phoneNumber }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination UI -->
+  <div class="flex justify-between items-center mt-4">
+    <!-- Pagination Summary -->
+    <div class="text-gray-500 text-sm">{{ paginationSummary }}</div>
+
+    <!-- Pagination Controls -->
+    <div class="flex justify-end items-center space-x-2">
+      <button
+        class="px-3 py-1 rounded border border-gray-300 bg-gray-100 hover:bg-gray-200"
+        (click)="prevPage()"
+        [disabled]="currentPage === 1"
+      >
+        Prev
+      </button>
+      <button
+        *ngFor="let page of totalPagesArray"
+        class="px-3 py-1 rounded border border-gray-300"
+        [ngClass]="{ 'bg-blue-500 text-white': currentPage === page, 'bg-gray-100 hover:bg-gray-200': currentPage !== page }"
+        (click)="goToPage(page)"
+      >
+        {{ page }}
+      </button>
+      <button
+        class="px-3 py-1 rounded border border-gray-300 bg-gray-100 hover:bg-gray-200"
+        (click)="nextPage()"
+        [disabled]="currentPage === totalPages"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+
+  <!-- Include the Add Doctor Component -->
+  <app-add-doctor (doctorAdded)="onDoctorAdded($event)"></app-add-doctor>
+</div>
