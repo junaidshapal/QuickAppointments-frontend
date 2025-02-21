@@ -13,6 +13,10 @@ import { MySchedulesComponent } from './components/my-schedules/my-schedules.com
 import { AuthGuard } from './Auth/auth.guard';
 import { DoctorListComponent } from './components/Doctor/doctor-list/doctor-list.component';
 import { AddDoctorComponent } from './components/Doctor/add-doctor/add-doctor.component';
+import { AddAppointmentComponent } from './components/appointment/add-appointment/add-appointment.component';
+import { AppointmentDetailComponent } from './components/appointment/appointment-detail/appointment-detail.component';
+import { AddDepartmentComponent } from './components/department/add-department/add-department.component';
+import { DepartmentListComponent } from './components/department/department-list/department-list.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'login', pathMatch:'full'},
@@ -26,7 +30,10 @@ const routes: Routes = [
   { path: 'my-schedules', component: MySchedulesComponent, canActivate: [AuthGuard]  },
   { path: 'doctors-list', component: DoctorListComponent  },
   { path: 'add-doctor', component: AddDoctorComponent  },
-
+  { path: 'add-appointment', component: AddAppointmentComponent },
+  { path: 'appointment/:id', component: AppointmentDetailComponent },
+  { path: 'add-department', component: AddDepartmentComponent },
+  { path: 'departments', component: DepartmentListComponent },
   { path: '**', redirectTo: 'login' },
 
 ];
