@@ -30,6 +30,16 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MySchedulesComponent } from './components/my-schedules/my-schedules.component';
+import { AppointmentDetailComponent } from './components/appointment/appointment-detail/appointment-detail.component';
+import { AddAppointmentComponent } from './components/appointment/add-appointment/add-appointment.component';
+import { DoctorListComponent } from './components/Doctor/doctor-list/doctor-list.component';
+import { AddDoctorComponent } from './components/Doctor/add-doctor/add-doctor.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DepartmentListComponent } from './components/department/department-list/department-list.component';
+import { AddDepartmentComponent } from './components/department/add-department/add-department.component';
 
 export function tokenGetter() {
   return localStorage.getItem('jwtToken');
@@ -48,6 +58,12 @@ export function tokenGetter() {
     RolesManagementComponent,
     SetupScheduleComponent,
     MySchedulesComponent,
+    AppointmentDetailComponent,
+    AddAppointmentComponent,
+    DoctorListComponent,
+    AddDoctorComponent,
+    DepartmentListComponent,
+    AddDepartmentComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +89,10 @@ export function tokenGetter() {
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTableModule,
+    MatSelectModule,
+    MatPaginatorModule,
+    MatDialogModule
   ],
   providers: [
     {

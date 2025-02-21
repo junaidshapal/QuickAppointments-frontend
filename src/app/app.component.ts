@@ -7,16 +7,22 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  showNavbar = true;
+  showNavbar = true; // Controls the sidebar visibility
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
+    this.updateNavbarVisibility(this.router.url);
+
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        // Hide navbar for login and register routes
-        this.showNavbar = !(event.url === '/login' || event.url === '/signup');
+        this.updateNavbarVisibility(event.url);
       }
     });
+  }
+
+  private updateNavbarVisibility(url: string): void {
+    const authPages = ['/login', '/signup']; // Routes where navbar should be hidden
+    this.showNavbar = !authPages.includes(url); // Hide sidebar but keep topbar
   }
 }
