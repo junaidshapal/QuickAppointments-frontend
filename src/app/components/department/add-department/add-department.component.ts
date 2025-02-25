@@ -8,13 +8,5 @@ import { Department } from '../../../models/department.model';
 })
 
 export class AddDepartmentComponent {
-  department: Department = { id: 0, name: '', description: '' };
-
-  constructor(private departmentService: DepartmentService) {}
-
-  addDepartment() {
-    this.departmentService.addDepartment(this.department).subscribe(() => {
-      alert('Department added successfully');
-    });
-  }
+  
 }
