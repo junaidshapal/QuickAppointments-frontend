@@ -1,0 +1,23 @@
+<div class="p-6 bg-white shadow-lg rounded-lg">
+    <h2 class="text-xl font-semibold mb-4 text-gray-700">Departments</h2>
+  
+    <mat-table [dataSource]="departments" class="w-full">
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let department">
+          {{ department.name }}
+        </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+        <mat-cell *matCellDef="let department">
+          {{ department.description }}
+        </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="['name', 'description']"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: ['name', 'description'];"></mat-row>
+    </mat-table>
+  </div>
+  
