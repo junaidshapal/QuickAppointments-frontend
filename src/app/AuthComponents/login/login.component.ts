@@ -34,11 +34,22 @@ export class LoginComponent implements OnInit {
       alert('Please provide valid credentials');
       return;
     }
-
+  
     this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
         console.log('Login successful:', response);
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['/dashboard']);
+        const userRole = this.authService.getRole();
+  
+        if (userRole === 'Doctor') {
+          this.router.navigate(['/dashboard']);
+        } else if (userRole === 'Customer') {
+          this.router.navigate(['/dashboard']);
+        } else if (userRole === 'Admin') {
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.router.navigate(['/dashboard']);
+        }
       },
       error: (err) => {
         console.error('Login failed:', err);
@@ -46,4 +57,23 @@ export class LoginComponent implements OnInit {
       },
     });
   }
+  
+
+  // login(): void {
+  //   if (this.loginForm.invalid) {
+  //     alert('Please provide valid credentials');
+  //     return;
+  //   }
+
+  //   this.authService.login(this.loginForm.value).subscribe({
+  //     next: (response) => {
+  //       console.log('Login successful:', response);
+  //       this.router.navigate(['dashboard']);
+  //     },
+  //     error: (err) => {
+  //       console.error('Login failed:', err);
+  //       alert('Login failed! Please check your credentials.');
+  //     },
+  //   });
+  // }
 }
