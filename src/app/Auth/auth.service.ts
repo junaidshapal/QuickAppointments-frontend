@@ -18,10 +18,10 @@ export class AuthService {
     private http: HttpClient,
     private jwtHelper: JwtHelperService,
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: any  //Added for SSR handling
+    @Inject(PLATFORM_ID) private platformId: any // Added for SSR handling
   ) {}
 
-  //Register User
+  // Register User
   register(user: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, user).pipe(
       map((response) => {
@@ -35,13 +35,14 @@ export class AuthService {
     );
   }
 
-  //Login User
+  // Login User
   login(credentials: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       map((response: any) => {
         console.log('Login successful:', response);
         if (response.token) {
           this.saveToken(response.token);
+          this.redirectAfterLogin();
         }
         return response;
       }),
@@ -52,12 +53,24 @@ export class AuthService {
     );
   }
 
-  //Get Role from JWT
+  // Redirect User Based on Role
+  private redirectAfterLogin(): void {
+    const role = this.getRole();
+    if (role === 'Admin') {
+      this.router.navigate(['/admin-dashboard']);
+    } else if (role === 'Doctor') {
+      this.router.navigate(['/doctor-dashboard']);
+    } else {
+      this.router.navigate(['/user-dashboard']);
+    }
+  }
+
+  // Get Role from JWT Token
   getRole(): string | null {
     const token = this.getToken();
     if (token) {
       try {
-        const decodedToken: any = jwtDecode(token);  //Corrected decoding
+        const decodedToken: any = jwtDecode(token);
         return decodedToken?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || null;
       } catch (error) {
         console.error('Error decoding token:', error);
@@ -67,36 +80,23 @@ export class AuthService {
     return null;
   }
 
-  //Save Token to Local Storage (Only in browser)
-  saveToken(token: string): void {
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem(this.tokenKey, token);
-    }
-  }
-
-  //Logout User
-  logout(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.removeItem(this.tokenKey);
-    }
-    this.router.navigate(['/login']).then(() => {
-      window.location.reload();  //Ensures navbar visibility updates correctly
-    });
-  }
-
-  //Check if User is Authenticated
-  isAuthenticated(): boolean {
+  // Get Logged-in User ID from JWT
+  getUserId(): string | null {
     const token = this.getToken();
-    return token ? !this.jwtHelper.isTokenExpired(token) : false;
+    if (token) {
+      try {
+        const decodedToken: any = jwtDecode(token);
+        return decodedToken?.['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'] || null;
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return null;
+      }
+    }
+    return null;
   }
 
-  //Get Token from Local Storage (Only in browser)
-  getToken(): string | null {
-    return isPlatformBrowser(this.platformId) ? localStorage.getItem(this.tokenKey) : null;
-  }
-
-  //Decode JWT Token (Optional Helper)
-  decodeToken(): any | null {
+  // Get User Details from JWT
+  getUserDetails(): any | null {
     const token = this.getToken();
     if (token) {
       try {
@@ -108,4 +108,33 @@ export class AuthService {
     }
     return null;
   }
+
+  // Save Token to Local Storage (Only in browser)
+  private saveToken(token: string): void {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(this.tokenKey, token);
+    }
+  }
+
+  // Logout User
+  logout(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem(this.tokenKey);
+    }
+    this.router.navigate(['/login']).then(() => {
+      window.location.reload(); // Ensures navbar visibility updates correctly
+    });
+  }
+
+  // Check if User is Authenticated
+  isAuthenticated(): boolean {
+    const token = this.getToken();
+    return token ? !this.jwtHelper.isTokenExpired(token) : false;
+  }
+
+  // Get Token from Local Storage (Only in browser)
+  public getToken(): string | null {
+    return isPlatformBrowser(this.platformId) ? localStorage.getItem(this.tokenKey) : null;
+  }
+  
 }
