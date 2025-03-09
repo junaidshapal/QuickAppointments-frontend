@@ -1,6 +1,6 @@
 export interface Appointment {
     id: number;
-    doctorId: number;
+    doctorId: string;
     customerId: number;
     appointmentDate: string; // Format: YYYY-MM-DD
     startTime: string; // Format: HH:mm:ss
