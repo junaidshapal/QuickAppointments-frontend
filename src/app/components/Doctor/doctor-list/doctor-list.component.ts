@@ -1,82 +1,60 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DoctorService } from '../../../services/doctor.service';
-import { Doctor } from '../../../models/doctor.model';
-import { AddDoctorComponent } from '../add-doctor/add-doctor.component';
+import { User } from '../../../models/user.model';
 
 @Component({
   selector: 'app-doctor-list',
   templateUrl: './doctor-list.component.html',
 })
 export class DoctorListComponent implements OnInit {
-  doctors: Doctor[] = [];
-
-  @ViewChild(AddDoctorComponent) addDoctorComponent!: AddDoctorComponent;
-
-  // Pagination properties
-  pageSize = 3; // Number of doctors per page
-  currentPage = 1; // Current active page
-  totalItems = 0; // Total number of doctors
+  doctors: User[] = [];
+  paginatedDoctors: User[] = [];
+  currentPage = 1;
+  pageSize = 5;
+  totalPages = 1;
+  totalPagesArray: number[] = [];
 
   constructor(private doctorService: DoctorService) {}
 
-  ngOnInit() {
-    this.loadDoctors();
+  ngOnInit(): void {
+    this.fetchDoctors();
   }
 
-  loadDoctors() {
-    this.doctorService.getDoctors().subscribe((data) => {
-      this.doctors = data;
-      this.totalItems = this.doctors.length; // Set total count
+  fetchDoctors(): void {
+    this.doctorService.getDoctors().subscribe({
+      next: (response) => {
+        this.doctors = response;
+        this.updatePagination();
+      },
+      error: (err) => console.error('Error fetching doctors:', err),
     });
   }
 
-  // Get paginated doctors for the current page
-  get paginatedDoctors() {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    return this.doctors.slice(startIndex, startIndex + this.pageSize);
+  updatePagination(): void {
+    this.totalPages = Math.ceil(this.doctors.length / this.pageSize);
+    this.totalPagesArray = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+    this.paginatedDoctors = this.doctors.slice(
+      (this.currentPage - 1) * this.pageSize,
+      this.currentPage * this.pageSize
+    );
   }
 
-  // Pagination methods
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-    }
-  }
-
-  prevPage() {
+  prevPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
+      this.updatePagination();
     }
   }
 
-  goToPage(page: number) {
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagination();
+    }
+  }
+
+  goToPage(page: number): void {
     this.currentPage = page;
-  }
-
-  // Getter for total pages count
-  get totalPages() {
-    return Math.ceil(this.totalItems / this.pageSize);
-  }
-
-  get totalPagesArray() {
-    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
-  }
-
-  // Display pagination summary
-  get paginationSummary() {
-    const startItem = (this.currentPage - 1) * this.pageSize + 1;
-    const endItem = Math.min(this.currentPage * this.pageSize, this.totalItems);
-    return `Showing ${startItem} - ${endItem} out of ${this.totalItems}`;
-  }
-
-  // Open the Add Doctor drawer
-  openAddDoctor() {
-    this.addDoctorComponent.openDrawer();
-  }
-
-  // When a doctor is added, update the list dynamically
-  onDoctorAdded(newDoctor: Doctor) {
-    this.doctors.push(newDoctor);
-    this.totalItems = this.doctors.length;
+    this.updatePagination();
   }
 }
