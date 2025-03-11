@@ -1,25 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Doctor } from '../models/doctor.model';
+import { User } from '../models/user.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DoctorService {
-  private apiUrl = 'https://localhost:7249/api/doctor';
+  private apiUrl = 'https://localhost:7249/api/auth';
 
   constructor(private http: HttpClient) {}
 
-  getDoctors(): Observable<Doctor[]> {
-    return this.http.get<Doctor[]>(this.apiUrl);
+  getDoctors(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/doctors`); // Fetch users with role "Doctor"
   }
 
-  getDoctorById(id: number): Observable<Doctor> {
-    return this.http.get<Doctor>(`${this.apiUrl}/${id}`);
-  }
-
-  addDoctor(doctor: Doctor): Observable<any> {
-    return this.http.post(this.apiUrl, doctor);
+  getDoctorById(id: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/${id}`);
   }
 }
