@@ -15,15 +15,15 @@ export class AppointmentService {
     return this.http.get<Appointment[]>(this.apiUrl);
   }
 
-  getAppointmentsByDoctor(doctorId: number): Observable<Appointment[]> {
+  getAppointmentsByDoctor(doctorId: string): Observable<Appointment[]> {
     return this.http.get<Appointment[]>(`${this.apiUrl}/doctor/${doctorId}`);
   }
 
-  getAppointmentsByCustomer(customerId: number): Observable<Appointment[]> {
+  getAppointmentsByCustomer(customerId: string): Observable<Appointment[]> {
     return this.http.get<Appointment[]>(`${this.apiUrl}/customer/${customerId}`);
   }
 
   bookAppointment(appointment: Appointment): Observable<any> {
-    return this.http.post(this.apiUrl, appointment, { responseType: 'text' }); // Fix: Handle text response
+    return this.http.post(this.apiUrl, appointment);
   }
 }
