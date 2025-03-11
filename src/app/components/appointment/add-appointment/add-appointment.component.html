@@ -9,33 +9,45 @@
   <form #appointmentForm="ngForm" (ngSubmit)="bookAppointment()" class="space-y-4">
     <mat-form-field class="w-full">
       <mat-label>Doctor</mat-label>
-      <mat-select [(ngModel)]="appointment.doctorId" name="doctorId" required>
+      <mat-select [(ngModel)]="appointment.doctorId" name="doctorId" required (selectionChange)="loadAvailability()">
         <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
-          {{ doctor.name }} - {{ doctor.specialty }}
+          {{ doctor.firstName }} {{ doctor.lastName }} - {{ doctor.specialty }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field class="w-full">
       <mat-label>Date</mat-label>
-      <input matInput type="date" [(ngModel)]="appointment.appointmentDate" name="appointmentDate" required />
+      <mat-select [(ngModel)]="appointment.appointmentDate" name="appointmentDate" required (selectionChange)="loadStartTimes()">
+        <mat-option *ngFor="let date of availableDates" [value]="date">
+          {{ date }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field class="w-full">
       <mat-label>Start Time</mat-label>
-      <input matInput type="time" [(ngModel)]="appointment.startTime" name="startTime" required />
+      <mat-select [(ngModel)]="appointment.startTime" name="startTime" required (selectionChange)="loadEndTimes()">
+        <mat-option *ngFor="let time of availableStartTimes" [value]="time">
+          {{ time }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field class="w-full">
       <mat-label>End Time</mat-label>
-      <input matInput type="time" [(ngModel)]="appointment.endTime" name="endTime" required />
+      <mat-select [(ngModel)]="appointment.endTime" name="endTime" required>
+        <mat-option *ngFor="let time of availableEndTimes" [value]="time">
+          {{ time }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
     <div class="flex justify-between">
       <button type="button" class="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600 transition duration-200"
               (click)="closeDrawer()">Cancel</button>
       <button type="submit" class="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition duration-200"
-              [disabled]="appointmentForm.invalid">
+              [disabled]="appointmentForm.invalid || availableStartTimes.length === 0 || availableEndTimes.length === 0">
         Book
       </button>
     </div>
