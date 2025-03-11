@@ -10,9 +10,10 @@ export class DoctorListComponent implements OnInit {
   doctors: User[] = [];
   paginatedDoctors: User[] = [];
   currentPage = 1;
-  pageSize = 5;
+  pageSize = 3;
   totalPages = 1;
   totalPagesArray: number[] = [];
+  totalItems = 0;
 
   constructor(private doctorService: DoctorService) {}
 
@@ -38,7 +39,16 @@ export class DoctorListComponent implements OnInit {
       this.currentPage * this.pageSize
     );
   }
-
+  get paginatedAppointments() {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    return this.doctors.slice(startIndex, startIndex + this.pageSize);
+  }
+  
+  get paginationSummary() {
+    const startItem = (this.currentPage - 1) * this.pageSize + 1;
+    const endItem = Math.min(this.currentPage * this.pageSize, this.totalItems);
+    return `Showing ${startItem} - ${endItem} out of ${this.totalItems}`;
+  }
   prevPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
