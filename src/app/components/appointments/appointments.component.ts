@@ -39,27 +39,22 @@ export class AppointmentsComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     return this.appointments.slice(startIndex, startIndex + this.pageSize);
   }
-
   get totalPages() {
     return Math.ceil(this.totalItems / this.pageSize);
   }
-
   get totalPagesArray() {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
-
   get paginationSummary() {
     const startItem = (this.currentPage - 1) * this.pageSize + 1;
     const endItem = Math.min(this.currentPage * this.pageSize, this.totalItems);
     return `Showing ${startItem} - ${endItem} out of ${this.totalItems}`;
   }
-
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
     }
   }
-
   prevPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
