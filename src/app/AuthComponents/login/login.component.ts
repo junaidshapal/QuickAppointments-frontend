@@ -8,6 +8,58 @@ import { AuthService } from '../../Auth/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
+// export class LoginComponent implements OnInit {
+//   loginForm: FormGroup;
+//   showPassword = false;
+
+//   constructor(
+//     private fb: FormBuilder,
+//     private authService: AuthService,
+//     private router: Router
+//   ) {
+//     this.loginForm = this.fb.group({
+//       email: ['', [Validators.required, Validators.email]],
+//       password: ['', Validators.required],
+//     });
+//   }
+
+//   ngOnInit(): void {}
+
+//   togglePasswordVisibility() {
+//     this.showPassword = !this.showPassword;
+//   }
+
+//   login(): void {
+//     if (this.loginForm.invalid) {
+//       alert('Please provide valid credentials');
+//       return;
+//     }
+  
+//     this.authService.login(this.loginForm.value).subscribe({
+//       next: (response) => {
+//         console.log('Login successful:', response);
+//         this.router.navigate(['/dashboard']);
+//         const userRole = this.authService.getRole();
+  
+//         if (userRole === 'Doctor') {
+//           this.router.navigate(['/dashboard']);
+//         } else if (userRole === 'Customer') {
+//           this.router.navigate(['/dashboard']);
+//         } else if (userRole === 'Admin') {
+//           this.router.navigate(['/dashboard']);
+//         } else {
+//           this.router.navigate(['/dashboard']);
+//         }
+//       },
+//       error: (err) => {
+//         console.error('Login failed:', err);
+//         alert('Login failed! Please check your credentials.');
+//       },
+//     });
+//   }
+
+
+// }
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   showPassword = false;
@@ -34,21 +86,32 @@ export class LoginComponent implements OnInit {
       alert('Please provide valid credentials');
       return;
     }
-  
+
     this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
         console.log('Login successful:', response);
-        this.router.navigate(['/dashboard']);
+        
+        // Ensure the token exists before trying to decode
+        if (!response?.token) {
+          alert('Invalid login response!');
+          return;
+        }
+
         const userRole = this.authService.getRole();
-  
-        if (userRole === 'Doctor') {
-          this.router.navigate(['/dashboard']);
-        } else if (userRole === 'Customer') {
-          this.router.navigate(['/dashboard']);
-        } else if (userRole === 'Admin') {
-          this.router.navigate(['/dashboard']);
-        } else {
-          this.router.navigate(['/dashboard']);
+
+        switch (userRole) {
+          case 'Doctor':
+            this.router.navigate(['/dashboard']);
+            break;
+          case 'Customer':
+            this.router.navigate(['/dashboard']);
+            break;
+          case 'Admin':
+            this.router.navigate(['/manage-doctors']);
+            break;
+          default:
+            this.router.navigate(['/dashboard']);
+            break;
         }
       },
       error: (err) => {
@@ -57,23 +120,4 @@ export class LoginComponent implements OnInit {
       },
     });
   }
-  
-
-  // login(): void {
-  //   if (this.loginForm.invalid) {
-  //     alert('Please provide valid credentials');
-  //     return;
-  //   }
-
-  //   this.authService.login(this.loginForm.value).subscribe({
-  //     next: (response) => {
-  //       console.log('Login successful:', response);
-  //       this.router.navigate(['dashboard']);
-  //     },
-  //     error: (err) => {
-  //       console.error('Login failed:', err);
-  //       alert('Login failed! Please check your credentials.');
-  //     },
-  //   });
-  // }
 }

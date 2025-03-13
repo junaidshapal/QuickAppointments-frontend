@@ -17,9 +17,7 @@ export class NavbarComponent {
   // Navigation links
   navLinks = [
     { name: 'Dashboard', route: '/dashboard', icon: faHome }, 
-    { name: 'Users', route: '/users-management', icon: faUser },
     { name: 'Appointment', route: '/appointments', icon: faClipboardList },
-    { name: 'Roles', route: '/roles-management', icon: faUserCheck }, 
     { name: 'Schedule', route: '/setup-schedule', icon: faCalendarAlt },
     { name: 'My-Schedules', route: '/my-schedules', icon: faClipboardUser }, 
     { name: 'Doctor', route: '/doctors-list', icon: faUserMd }, 
