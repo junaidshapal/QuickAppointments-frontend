@@ -1,34 +1,35 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { jwtDecode } from 'jwt-decode';
+import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { jwtDecode } from 'jwt-decode';
+import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
   private apiUrl = 'https://localhost:7249/api/Auth';
-  private tokenKey = 'jwtToken';  // Key for storing JWT in local storage
+  private tokenKey = 'jwtToken';
+  private roleKey = 'userRole';
 
   constructor(
     private http: HttpClient,
     private jwtHelper: JwtHelperService,
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: any // Added for SSR handling
+    @Inject(PLATFORM_ID) private platformId: any
   ) {}
 
   // Register User
   register(user: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, user).pipe(
-      map((response) => {
+      map(response => {
         console.log('Registration successful:', response);
         return response;
       }),
-      catchError((error) => {
+      catchError(error => {
         console.error('Registration error:', error);
         return throwError(() => error);
       })
@@ -36,13 +37,41 @@ export class AuthService {
   }
 
   // Login User
+  // login(credentials: any): Observable<any> {
+  //   return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
+  //     map((response: any) => {
+  //       console.log('Login successful:', response);
+  //       if (response.token) {
+  //         this.saveToken(response.token);
+  //         this.redirectAfterLogin();
+  //       }
+  //       return response;
+  //     }),
+  //     catchError(err => {
+  //       console.error('Login error:', err);
+  //       return throwError(() => err);
+  //     })
+  //   );
+  // }
   login(credentials: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       map((response: any) => {
-        console.log('Login successful:', response);
         if (response.token) {
           this.saveToken(response.token);
-          this.redirectAfterLogin();
+  
+          // **Ensure immediate role-based redirection**
+          setTimeout(() => {
+            const role = this.getRole();
+            console.log('Redirecting role:', role);  // Debugging log
+  
+            if (role === 'Admin') {
+              this.router.navigate(['/admin']);
+            } else if (role === 'Doctor') {
+              this.router.navigate(['/dashboard']);
+            } else {
+              this.router.navigate(['/dashboard']);
+            }
+          }, 500); // **Delay to ensure token is fully saved**
         }
         return response;
       }),
@@ -52,16 +81,18 @@ export class AuthService {
       })
     );
   }
+  
+  
 
   // Redirect User Based on Role
   private redirectAfterLogin(): void {
     const role = this.getRole();
     if (role === 'Admin') {
-      this.router.navigate(['/admin-dashboard']);
+      this.router.navigate(['/admin']);
     } else if (role === 'Doctor') {
       this.router.navigate(['/doctor-dashboard']);
     } else {
-      this.router.navigate(['/user-dashboard']);
+      this.router.navigate(['/dashboard']);
     }
   }
 
@@ -109,10 +140,18 @@ export class AuthService {
     return null;
   }
 
-  // Save Token to Local Storage (Only in browser)
+  // Save Token to Local Storage
   private saveToken(token: string): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem(this.tokenKey, token);
+
+      // Decode token and store role
+      const decodedToken = jwtDecode<any>(token);
+      const role = decodedToken?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+
+      if (role) {
+        localStorage.setItem(this.roleKey, role);
+      }
     }
   }
 
@@ -120,9 +159,10 @@ export class AuthService {
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem(this.tokenKey);
+      localStorage.removeItem(this.roleKey);
     }
     this.router.navigate(['/login']).then(() => {
-      window.location.reload(); // Ensures navbar visibility updates correctly
+      window.location.reload();
     });
   }
 
@@ -132,9 +172,13 @@ export class AuthService {
     return token ? !this.jwtHelper.isTokenExpired(token) : false;
   }
 
-  // Get Token from Local Storage (Only in browser)
-  public getToken(): string | null {
+  // Check if User is Admin
+  isAdmin(): boolean {
+    return this.getRole() === 'Admin';
+  }
+
+  // Get Token from Local Storage
+  getToken(): string | null {
     return isPlatformBrowser(this.platformId) ? localStorage.getItem(this.tokenKey) : null;
   }
-  
 }
