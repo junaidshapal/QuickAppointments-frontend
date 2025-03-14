@@ -17,6 +17,7 @@ import { AddAppointmentComponent } from './components/appointment/add-appointmen
 import { AppointmentDetailComponent } from './components/appointment/appointment-detail/appointment-detail.component';
 import { AddDepartmentComponent } from './components/department/add-department/add-department.component';
 import { DepartmentListComponent } from './components/department/department-list/department-list.component';
+import { AdminGuard } from './admin/guards/admin.guard';
 
 const routes: Routes = [
   {path:'', redirectTo:'login', pathMatch:'full'},
@@ -34,8 +35,22 @@ const routes: Routes = [
   { path: 'appointment/:id', component: AppointmentDetailComponent },
   { path: 'add-department', component: AddDepartmentComponent },
   { path: 'departments', component: DepartmentListComponent },
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
   { path: '**', redirectTo: 'login' },
 
+   // Admin Panel (Lazy Loading)
+   { 
+    path: 'admin', 
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), 
+    canActivate: [AdminGuard],
+    //data: { expectedRole: 'Admin' } 
+  },
+  { path: '**', redirectTo: 'login' },
+
+
+  // //For admin
+  // { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+  // { path: '**', redirectTo: '/admin', pathMatch: 'full' }
 ];
 
 
