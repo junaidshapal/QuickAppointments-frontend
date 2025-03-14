@@ -4,12 +4,20 @@
 
   <!-- Main Content Area -->
   <div class="flex flex-1">
-    <!-- Sidebar (Navbar) - Hidden on Login/Signup -->
-    <app-navbar *ngIf="showNavbar"></app-navbar>
-
-    <!-- Page Content -->
-    <div class="flex-1 bg-gray-100 overflow-auto p-4">
+    <!-- If Admin is logged in, Show Admin Panel -->
+    <ng-container *ngIf="isAdmin; else userLayout">
       <router-outlet></router-outlet>
-    </div>
+    </ng-container>
+
+    <!-- User Panel Layout -->
+    <ng-template #userLayout>
+      <!-- Sidebar (Navbar) - Hidden on Login/Signup -->
+      <app-navbar *ngIf="showNavbar"></app-navbar>
+
+      <!-- Page Content -->
+      <div class="flex-1 bg-gray-100 overflow-auto p-4">
+        <router-outlet></router-outlet>
+      </div>
+    </ng-template>
   </div>
 </div>
