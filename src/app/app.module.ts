@@ -40,6 +40,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DepartmentListComponent } from './components/department/department-list/department-list.component';
 import { AddDepartmentComponent } from './components/department/add-department/add-department.component';
+import { AdminService } from './admin/services/admin.service';
+
 
 export function tokenGetter() {
   return localStorage.getItem('jwtToken');
@@ -95,6 +97,7 @@ export function tokenGetter() {
     MatDialogModule
   ],
   providers: [
+    //AdminService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
