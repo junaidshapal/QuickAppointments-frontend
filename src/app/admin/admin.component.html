@@ -1,0 +1,38 @@
+<div class="flex h-screen bg-gray-100">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-[#2E4F56] text-white p-5">
+      <h2 class="text-xl font-semibold">Admin Panel</h2>
+      <ul class="mt-5 space-y-2">
+        <li>
+          <a routerLink="/admin/dashboard" class="block py-2 px-4 hover:bg-gray-700 rounded">
+            Dashboard
+          </a>
+          <a routerLink="/admin/manage-users" class="block py-2 px-4 hover:bg-gray-700 rounded">
+            Manage Users
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/manage-appointments" class="block py-2 px-4 hover:bg-gray-700 rounded">
+            Manage Appointments
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/doctor-availability" class="block py-2 px-4 hover:bg-gray-700 rounded">
+            Doctor Availability
+          </a>
+        </li>
+      </ul>
+      <button
+        (click)="logout()"
+        class="mt-10 w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded"
+      >
+        Logout
+      </button>
+    </aside>
+  
+    <!-- Main Content -->
+    <main class="flex-1 p-5">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+  
