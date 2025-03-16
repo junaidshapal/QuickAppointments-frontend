@@ -3,8 +3,7 @@
   <app-topbar></app-topbar>
 
   <!-- Main Content Area -->
-  <div class="flex flex-1">
-    <!-- If Admin is logged in, Show Admin Panel -->
+  <div [ngClass]="{ 'flex flex-1': !isAdmin }">
     <ng-container *ngIf="isAdmin; else userLayout">
       <router-outlet></router-outlet>
     </ng-container>

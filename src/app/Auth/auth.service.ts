@@ -65,7 +65,7 @@ export class AuthService {
             console.log('Redirecting role:', role);  // Debugging log
   
             if (role === 'Admin') {
-              this.router.navigate(['/admin']);
+              this.router.navigate(['/admin/dashboard']);
             } else if (role === 'Doctor') {
               this.router.navigate(['/dashboard']);
             } else {
@@ -85,16 +85,16 @@ export class AuthService {
   
 
   // Redirect User Based on Role
-  private redirectAfterLogin(): void {
-    const role = this.getRole();
-    if (role === 'Admin') {
-      this.router.navigate(['/admin']);
-    } else if (role === 'Doctor') {
-      this.router.navigate(['/doctor-dashboard']);
-    } else {
-      this.router.navigate(['/dashboard']);
-    }
-  }
+  // private redirectAfterLogin(): void {
+  //   const role = this.getRole();
+  //   if (role === 'Admin') {
+  //     this.router.navigate(['/admin/dashboard']);
+  //   } else if (role === 'Doctor') {
+  //     this.router.navigate(['/doctor-dashboard']);
+  //   } else {
+  //     this.router.navigate(['/dashboard']);
+  //   }
+  // }
 
   // Get Role from JWT Token
   getRole(): string | null {
