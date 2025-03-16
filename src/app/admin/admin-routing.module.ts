@@ -9,14 +9,6 @@ import { ManageAppointmentsComponent } from './manage-appointments/manage-appoin
 import { DoctorAvailabilityComponent } from './doctor-availability/doctor-availability.component';
 import { ManageDoctorsComponent } from './manage-doctors/manage-doctors.component';
 
-// const routes: Routes = [
-//   { path: '', component: AdminDashboardComponent },
-//   { path: 'users', component: ManageUsersComponent },
-//   { path: 'users/edit/:id', component: EditUserComponent},
-//   { path: 'manage-appointments', component: ManageAppointmentsComponent},
-//   { path: 'availability', component: DoctorAvailabilityComponent }
-// ];
-
 const routes: Routes = [
   {
     path: '',
