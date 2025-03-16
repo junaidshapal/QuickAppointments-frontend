@@ -1,0 +1,43 @@
+<div class="dashboard-container">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Admin Dashboard</h2>
+  
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="card bg-blue-500 text-white">
+        <h3 class="text-lg">Total Users</h3>
+        <p class="text-2xl font-bold">{{ totalUsers }}</p>
+      </div>
+      <div class="card bg-green-500 text-white">
+        <h3 class="text-lg">Total Doctors</h3>
+        <p class="text-2xl font-bold">{{ totalDoctors }}</p>
+      </div>
+      <div class="card bg-yellow-500 text-white">
+        <h3 class="text-lg">Total Appointments</h3>
+        <p class="text-2xl font-bold">{{ totalAppointments }}</p>
+      </div>
+    </div>
+  
+    <!-- Upcoming Appointments -->
+    <div class="mt-8">
+      <h3 class="text-lg font-semibold text-gray-700">Upcoming Appointments</h3>
+      <table class="table-auto w-full mt-4">
+        <thead>
+          <tr>
+            <th class="text-left">Doctor</th>
+            <th class="text-left">Date</th>
+            <th class="text-left">Time</th>
+            <th class="text-left">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let appointment of upcomingAppointments">
+            <td>{{ appointment.doctorName }}</td>
+            <td>{{ appointment.appointmentDate }}</td>
+            <td>{{ appointment.startTime }} - {{ appointment.endTime }}</td>
+            <td class="text-yellow-600 font-semibold">{{ appointment.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
