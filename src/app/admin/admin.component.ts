@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../Auth/auth.service';
+import { TopbarComponent } from '../components/topbar/topbar.component';
 
 @Component({
   selector: 'app-admin',
@@ -8,6 +9,7 @@ import { AuthService } from '../Auth/auth.service';
 })
 export class AdminComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
+  isSidebarOpen: boolean = true;
 
   ngOnInit(): void {
     // Check if user is an Admin
@@ -17,6 +19,10 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+  
   logout(): void {
     this.authService.logout();
   }

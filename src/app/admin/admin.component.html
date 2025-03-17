@@ -1,38 +1,55 @@
-<div class="flex h-screen bg-gray-100">
+<div class="flex flex-col h-screen overflow-hidden">
+  <!-- Main Container (Sidebar + Content) -->
+  <div class="flex flex-1 overflow-hidden">
     <!-- Sidebar -->
-    <aside class="w-64 bg-[#2E4F56] text-white p-5">
-      <h2 class="text-xl font-semibold">Admin Panel</h2>
-      <ul class="mt-5 space-y-2">
+    <aside [ngClass]="{'w-64': isSidebarOpen, 'w-0': !isSidebarOpen}" 
+           class="bg-[#1E293B] text-white p-5 transition-all duration-300 ease-in-out">
+      <!-- Sidebar Close Button -->
+      <div class="flex justify-end mb-4">
+        <button (click)="toggleSidebar()" class="text-white text-1xl focus:outline-none">
+          ✖
+        </button>
+      </div>
+
+      <!-- Navigation Menu -->
+      <ul class="mt-5 space-y-2" *ngIf="isSidebarOpen">
         <li>
-          <a routerLink="/admin/dashboard" class="block py-2 px-4 hover:bg-gray-700 rounded">
-            Dashboard
-          </a>
-          <a routerLink="/admin/manage-users" class="block py-2 px-4 hover:bg-gray-700 rounded">
-            Manage Users
+          <a routerLink="/admin/dashboard" routerLinkActive="active-link"
+             class="block py-2 px-4 rounded flex items-center space-x-2 hover:bg-blue-600 transition duration-300">
+            <span class="material-icons">home</span>
+            <span>Dashboard</span>
           </a>
         </li>
         <li>
-          <a routerLink="/admin/manage-appointments" class="block py-2 px-4 hover:bg-gray-700 rounded">
-            Manage Appointments
+          <a routerLink="/admin/manage-users" routerLinkActive="active-link"
+             class="block py-2 px-4 rounded flex items-center space-x-2 hover:bg-blue-600 transition duration-300">
+            <span class="material-icons">people</span>
+            <span>Manage Users</span>
           </a>
         </li>
         <li>
-          <a routerLink="/admin/doctor-availability" class="block py-2 px-4 hover:bg-gray-700 rounded">
-            Doctor Availability
+          <a routerLink="/admin/manage-appointments" routerLinkActive="active-link"
+             class="block py-2 px-4 rounded flex items-center space-x-2 hover:bg-blue-600 transition duration-300">
+            <span class="material-icons">event</span>
+            <span>Manage Appointments</span>
           </a>
         </li>
-      </ul>
-      <button
-        (click)="logout()"
-        class="mt-10 w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded"
-      >
-        Logout
-      </button>
+        <li>
+          <a routerLink="/admin/doctor-availability" routerLinkActive="active-link"
+             class="block py-2 px-4 rounded flex items-center space-x-2 hover:bg-blue-600 transition duration-300">
+            <span class="material-icons">schedule</span>
+            <span>Doctor Availability</span>
+          </a>
+        </li>
+      </ul>      
     </aside>
-  
+
     <!-- Main Content -->
-    <main class="flex-1 p-5">
+    <main class="flex-1 bg-gray-100 p-5 overflow-auto">
+      <button (click)="toggleSidebar()" class="p-2 bg-blue-600 text-white rounded mb-2" *ngIf="!isSidebarOpen">
+        ☰
+      </button>
       <router-outlet></router-outlet>
     </main>
   </div>
-  
+</div>

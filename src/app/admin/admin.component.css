@@ -1,0 +1,39 @@
+/* Hide sidebar when closed */
+aside {
+  overflow: hidden;
+}
+
+/* Close button styling */
+button {
+  cursor: pointer;
+}
+
+/* Smooth transition */
+.transition-all {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Active link styling */
+.active-link {
+  background-color: #2563EB !important; /* Blue background */
+  color: white !important; /* White text */
+}
+
+/* Ensure hover effect is also blue */
+a:hover {
+  background-color: #2563EB !important;
+  color: white !important;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Fix: Ensure active and hovered links look the same */
+a.router-link-active,
+a.router-link-active:hover {
+  background-color: #2563EB !important;
+  color: white !important;
+}
+
+/* Override Material Icons color inside links */
+a .material-icons {
+  color: white !important;
+}
