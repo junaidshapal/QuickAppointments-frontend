@@ -1,0 +1,30 @@
+<mat-dialog-content class="p-6 bg-white rounded-lg">
+    <h2 class="text-xl font-semibold text-gray-700">Edit User</h2>
+  
+    <form class="mt-4">
+      <div class="mb-4">
+        <label class="block text-gray-700">First Name</label>
+        <input type="text" [(ngModel)]="updatedUser.firstName" name="firstName" class="input-field" />
+      </div>
+  
+      <div class="mb-4">
+        <label class="block text-gray-700">Last Name</label>
+        <input type="text" [(ngModel)]="updatedUser.lastName" name="lastName" class="input-field" />
+      </div>
+  
+      <div class="mb-4">
+        <label class="block text-gray-700">Email</label>
+        <input type="email" [(ngModel)]="updatedUser.email" name="email" class="input-field" />
+      </div>
+  
+      <div class="flex justify-between">
+        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600" (click)="close()">
+          Cancel
+        </button>
+        <button type="button" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" (click)="saveChanges()">
+          Save Changes
+        </button>
+      </div>
+    </form>
+  </mat-dialog-content>
+  
