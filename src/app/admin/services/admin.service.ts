@@ -64,13 +64,8 @@ deleteDoctorAvailability(availabilityId: number): Observable<any> {
 }
 
 
-  //Get all doctor availabilities
-  // getDoctorAvailability(): Observable<any> {
-  //   return this.http.get(`${this.apiUrl}/availability`);
-  // }
-
   //Cancel all appointments for a doctor on a specific date
-  cancelAppointmentsForDate(doctorId: string, date: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/cancel-appointments-date`, { doctorId, date });
-  }
+  // cancelAppointmentsForDate(doctorId: string, date: string): Observable<any> {
+  //   return this.http.post(`${this.apiUrl}/cancel-appointments-date`, { doctorId, date });
+  // }
 }
