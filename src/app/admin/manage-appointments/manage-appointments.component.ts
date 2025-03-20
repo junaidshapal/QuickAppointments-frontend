@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Appointment } from '../../models/appointment.model';
 import { AdminService } from '../services/admin.service';
+import { AppointmentService } from '../../services/appointment.service';
 
 @Component({
   selector: 'app-manage-appointments',
@@ -14,7 +15,7 @@ export class ManageAppointmentsComponent implements OnInit {
   selectedDoctorId: string = '';
   doctors: any[] = [];
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService, private appointmentService:AppointmentService) {}
 
   ngOnInit() {
     this.loadAppointments();
@@ -22,7 +23,7 @@ export class ManageAppointmentsComponent implements OnInit {
   }
 
   loadAppointments() {
-    this.adminService.getAllAppointments().subscribe(data => {
+    this.appointmentService.getAppointments().subscribe(data => {
       this.appointments = data;
       this.filteredAppointments = [...this.appointments]; // Set initial filtered list
     });
@@ -36,9 +37,10 @@ export class ManageAppointmentsComponent implements OnInit {
 
   filterAppointments() {
     this.filteredAppointments = this.appointments.filter(appointment => {
-      const matchDate = this.searchDate ? appointment.appointmentDate.includes(this.searchDate) : true;
+      //const matchDate = this.searchDate ? appointment.appointmentDate.includes(this.searchDate) : true;
       const matchDoctor = this.selectedDoctorId ? appointment.doctorId === this.selectedDoctorId : true;
-      return matchDate && matchDoctor;
+      //return matchDate && matchDoctor;
+      return matchDoctor;
     });
   }
 
