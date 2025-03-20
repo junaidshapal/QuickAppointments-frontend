@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AdminService } from '../services/admin.service';
 import { Availability } from '../../models/availability.model';
+import { AppointmentService } from '../../services/appointment.service';
+import { AvailabilityService } from '../../services/availability.service';
 
 @Component({
   selector: 'app-doctor-availability',
@@ -11,14 +13,16 @@ export class DoctorAvailabilityComponent implements OnInit {
   availabilities: Availability[] = [];
   loading: boolean = true;
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService,
+    private availabilityService:AvailabilityService,
+    private appointmentService: AppointmentService) {}
 
   ngOnInit() {
     this.loadAvailability();
   }
 
   loadAvailability() {
-    this.adminService.getDoctorAvailability(this.doctorId).subscribe({
+    this.availabilityService.getAvailabilityByDoctor(this.doctorId).subscribe({
       next: (data) => {
         debugger
         this.availabilities = data;
