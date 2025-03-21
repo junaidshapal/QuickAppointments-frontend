@@ -1,0 +1,78 @@
+<div class="p-6 bg-white shadow-lg rounded-lg w-full">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-2xl font-semibold text-gray-800">Manage Users</h2>
+  </div>
+
+  <div class="relative shadow-md rounded-lg border border-gray-300 w-full h-full">
+    <table class="w-full text-sm text-left text-black">
+      <thead class="text-sm uppercase bg-blue-200 text-black font-bold">
+        <tr>
+          <th class="px-4 py-3">#</th>
+          <th class="px-4 py-3">First Name</th>
+          <th class="px-4 py-3">Last Name</th>
+          <th class="px-4 py-3">Email</th>
+          <th class="px-4 py-3">Role</th>
+          <th class="px-4 py-3">Status</th>
+          <th class="px-4 py-3 text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of paginatedUsers; let i = index" class="border-b bg-gray-50 hover:bg-gray-100">
+          <td class="px-4 py-3">{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+          <td class="px-4 py-3">{{ user.firstName }}</td>
+          <td class="px-4 py-3">{{ user.lastName }}</td>
+          <td class="px-4 py-3">{{ user.email }}</td>
+          <td class="px-4 py-3">{{ user.role }}</td>
+          <td class="px-4 py-3 text-center">
+            <span [ngClass]="{'text-green-600': user.isApproved, 'text-red-600': !user.isApproved}">
+              {{ user.isApproved ? 'Approved' : 'Blocked' }}
+            </span>
+          </td>
+          <td class="px-4 py-3 flex justify-center space-x-2">
+            <button (click)="openEditUserModal(user)" class="text-blue-500 hover:text-blue-700">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button (click)="approveUser(user.id)" class="text-green-500 hover:text-green-700">
+              <mat-icon>check_circle</mat-icon>
+            </button>
+            <button (click)="blockUser(user.id)" class="text-yellow-500 hover:text-yellow-700">
+              <mat-icon>block</mat-icon>
+            </button>
+            <button (click)="deleteUser(user.id)" class="text-red-500 hover:text-red-700">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="flex justify-between items-center mt-4">
+    <div class="text-gray-500 text-sm">{{ paginationSummary }}</div>
+    <div class="flex justify-end items-center space-x-2">
+      <button
+        class="px-3 py-1 rounded border border-gray-300 bg-gray-100 hover:bg-gray-200"
+        (click)="prevPage()"
+        [disabled]="currentPage === 1"
+      >
+        Prev
+      </button>
+      <button
+        *ngFor="let page of totalPagesArray"
+        class="px-3 py-1 rounded border border-gray-300"
+        [ngClass]="{ 'bg-blue-500 text-white': currentPage === page, 'bg-gray-100 hover:bg-gray-200': currentPage !== page }"
+        (click)="goToPage(page)"
+      >
+        {{ page }}
+      </button>
+      <button
+        class="px-3 py-1 rounded border border-gray-300 bg-gray-100 hover:bg-gray-200"
+        (click)="nextPage()"
+        [disabled]="currentPage === totalPages"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</div>
