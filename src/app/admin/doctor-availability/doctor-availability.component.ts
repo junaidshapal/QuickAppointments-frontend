@@ -1,8 +1,3 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AdminService } from '../services/admin.service';
-import { Availability } from '../../models/availability.model';
-import { AppointmentService } from '../../services/appointment.service';
-import { AvailabilityService } from '../../services/availability.service';
 
 @Component({
   selector: 'app-doctor-availability',
