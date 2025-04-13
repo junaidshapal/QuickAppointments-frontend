@@ -13,7 +13,13 @@ export class DoctorAvailabilityComponent implements OnInit {
   availabilities: Availability[] = [];
   loading: boolean = true;
 
-  
+  constructor(private adminService: AdminService,
+    private availabilityService:AvailabilityService,
+    private appointmentService: AppointmentService) {}
+
+  ngOnInit() {
+    this.loadAvailability();
+  }
 
   loadAvailability() {
     this.availabilityService.getAvailabilityByDoctor(this.doctorId).subscribe({
