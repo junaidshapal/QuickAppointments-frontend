@@ -4,10 +4,7 @@ import { Availability } from '../../models/availability.model';
 import { AppointmentService } from '../../services/appointment.service';
 import { AvailabilityService } from '../../services/availability.service';
 
-@Component({
-  selector: 'app-doctor-availability',
-  templateUrl: './doctor-availability.component.html'
-})
+
 export class DoctorAvailabilityComponent implements OnInit {
   @Input() doctorId!: string;
   availabilities: Availability[] = [];
