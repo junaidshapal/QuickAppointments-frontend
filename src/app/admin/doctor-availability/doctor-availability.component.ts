@@ -21,19 +21,7 @@ export class DoctorAvailabilityComponent implements OnInit {
     this.loadAvailability();
   }
 
-  loadAvailability() {
-    this.availabilityService.getAvailabilityByDoctor(this.doctorId).subscribe({
-      next: (data) => {
-        debugger
-        this.availabilities = data;
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Error fetching availability:', err);
-        this.loading = false;
-      }
-    });
-  }
+ 
 
   cancelAppointment(availabilityId: number) {
     if (confirm('Are you sure you want to cancel this availability?')) {
