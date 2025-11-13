@@ -11,6 +11,7 @@ export class EditUserComponent {
   updatedUser: any = {};
 
   constructor(
+    // dialogRef for managing the modal dialog
     public dialogRef: MatDialogRef<EditUserComponent>,
     @Inject(MAT_DIALOG_DATA) public user: any,
     private adminService: AdminService
@@ -18,6 +19,7 @@ export class EditUserComponent {
     this.updatedUser = { ...user }; //Copy existing user data
   }
 
+  // method to save changes made to the user
   saveChanges() {
     this.adminService.updateUser(this.updatedUser.id, this.updatedUser).subscribe(() => {
       alert('User Updated Successfully');
