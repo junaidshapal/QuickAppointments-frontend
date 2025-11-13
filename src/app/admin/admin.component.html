@@ -13,7 +13,20 @@
 
       <!-- Navigation Menu -->
       <ul class="mt-5 space-y-2" *ngIf="isSidebarOpen">
-       
+        <li>
+          <a routerLink="/admin/dashboard" routerLinkActive="active-link"
+             class="block py-2 px-4 rounded flex items-center space-x-2 hover:bg-blue-600 transition duration-300">
+            <span class="material-icons">home</span>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/manage-users" routerLinkActive="active-link"
+             class="block py-2 px-4 rounded flex items-center space-x-2 hover:bg-blue-600 transition duration-300">
+            <span class="material-icons">people</span>
+            <span>Manage Users</span>
+          </a>
+        </li>
         <li>
           <a routerLink="/admin/manage-appointments" routerLinkActive="active-link"
              class="block py-2 px-4 rounded flex items-center space-x-2 hover:bg-blue-600 transition duration-300">
