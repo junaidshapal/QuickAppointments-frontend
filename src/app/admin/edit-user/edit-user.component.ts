@@ -19,7 +19,14 @@ export class EditUserComponent {
     this.updatedUser = { ...user }; //Copy existing user data
   }
 
- 
+  // method to save changes made to the user
+  saveChanges() {
+    this.adminService.updateUser(this.updatedUser.id, this.updatedUser).subscribe(() => {
+      alert('User Updated Successfully');
+      this.dialogRef.close(true); //Close modal and reload users
+    });
+  }
+
   close() {
     this.dialogRef.close();
   }
