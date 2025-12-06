@@ -35,14 +35,14 @@ export class DoctorAvailabilityComponent implements OnInit {
     });
   }
 
-  deleteAvailability(availabilityId: string) {
-    if (confirm('Are you sure you want to delete this availability?')) {
-      this.availabilityService.deleteAvailability(availabilityId).subscribe({
+  cancelAppointment(availabilityId: number) {
+    if (confirm('Are you sure you want to cancel this availability?')) {
+      this.adminService.deleteDoctorAvailability(availabilityId).subscribe({
         next: () => {
-          alert('Availability deleted.');
+          alert('Availability canceled.');
           this.loadAvailability();
         },
-        error: (err) => console.error('Error deleting availability:', err)
+        error: (err) => console.error('Error canceling availability:', err)
       });
     }
   }
